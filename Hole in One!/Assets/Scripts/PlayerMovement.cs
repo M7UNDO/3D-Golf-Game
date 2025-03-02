@@ -1,27 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Rigidbody rb;
-    private bool isGrounded;
-
-    [Header("Moving and Looking Around")]
+    [Header("Movement")]
     [Space(5)]
-    //public float moveSpeed;
+    private Rigidbody rb;
+    [SerializeField] private Transform playerCamera;
+    [SerializeField] private float ballSpeed;
+    private bool isGrounded;
+    public ParticleSystem _particleSystem;
+    private Vector2 moveInput;
+    private Vector2 lookInput;
+    private Vector2 velocity;
+    public PlayerControls playerInput;
     public float lookSpeed;
     public float jumpHeight;
-    public PlayerControls playerInput;
-    private Vector2 moveInput;
-    //private Vector3 velocity;
+    public float rotationSpeed;
+   
+
+
+
+
+    [Header("Camera")]
+    [Space(5)]
+    //public float moveSpeed;
+    private float verticalLookRotation;    //private Vector3 velocity;
 
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-
     }
 
     // Update is called once per frame
@@ -29,16 +41,19 @@ public class PlayerMovement : MonoBehaviour
     {
 
         Move();
-        Jump();
-        //Debug.Log(isGrounded);
-        //ApplyGravity();
-        //LookAround();
+        
         //print(healthBar.fillAmount);
     }
+
+    
 
     private void OnCollisionEnter(Collision coli)
     {
         if (coli.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
+        else if (coli.gameObject.CompareTag("Wall"))
         {
             isGrounded = true;
         }
@@ -47,6 +62,22 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = false;
         }
         Debug.Log(coli.gameObject);
+    }
+
+    private void OnCollisionExit(Collision coli)
+    {
+        if (coli.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
+        else if (coli.gameObject.CompareTag("Wall"))
+        {
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = true;
+        }
     }
 
     private void OnTriggerEnter(Collider coli)
@@ -64,16 +95,27 @@ public class PlayerMovement : MonoBehaviour
 
         playerInput.Player.Jump.performed += ctx => Jump();
 
+        
+
+        playerInput.Player.Lookaround.performed += ctx => lookInput = ctx.ReadValue<Vector2>();
+        playerInput.Player.Lookaround.canceled += ctx => lookInput = Vector2.zero;
 
     }
 
-    /*private void OnDisable()
+    /*
+    private void OnDisable()
     {
-        var playerInput = new PlayerControls();
+        
         playerInput.Player.Movement.performed -= ctx => moveInput = ctx.ReadValue<Vector2>();
         playerInput.Player.Movement.canceled -= ctx => moveInput = Vector2.zero;
 
-       
+        playerInput.Player.Jump.performed -= ctx => Jump();
+
+        playerInput.Player.Lookaround.performed -= ctx => lookInput = ctx.ReadValue<Vector2>();
+        playerInput.Player.Lookaround.canceled -= ctx => lookInput = Vector2.zero;
+
+        playerInput.Disable();
+
     }
     */
     public void Jump()
@@ -82,41 +124,32 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded == true)
         {
 
-            rb.AddForce(Vector3.up * jumpHeight);
-            //velocity.y = Mathf.Sqrt(jumpHeight);
+            rb.AddForce(new Vector3 (0f, 4f, 0f), ForceMode.Impulse);
+            //rb.AddForce(Vector3.up * jumpHeight);
             //healthBar.fillAmount -= damageAmount;
-
         }
+        
 
     }
+
+   
 
     public void Move()
     {
-        /* Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
 
-         move = transform.TransformDirection(move);
-         float currentSpeed = moveSpeed;
-         characterController.Move(move * currentSpeed * Time.deltaTime);
+        Vector3 movementDirection = new Vector3(moveInput.x, 0f, moveInput.y) * ballSpeed;
 
-         float actualSpeed = characterController.velocity.magnitude;
-       */
+        rb.AddForce(movementDirection);
+        movementDirection.Normalize();
 
-        rb.AddForce(moveInput.x*3f, 0, moveInput.y*3f);
-
-        //rb.velocity = new Vector3(moveInput.x, 0, moveInput.y);
-
-    }
-
-
-    /*public void ApplyGravity()
-    {
-        if (characterController.isGrounded && velocity.y < 0)
+        if(movementDirection != Vector3.zero)
         {
-            velocity.y = -0.5f;
+            transform.forward = movementDirection;
         }
+       
 
-        velocity.y += gravity * Time.deltaTime;
-        characterController.Move(velocity * Time.deltaTime); 
     }
-   */
+
+
+    
 }
