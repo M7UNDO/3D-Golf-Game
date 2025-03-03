@@ -56,12 +56,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""RotateCam"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""32955885-c4a4-434f-9c69-a52b59bc181d"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -200,7 +200,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""38749277-a60f-411d-b9f5-a7bd7f7a9fbb"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

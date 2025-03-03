@@ -35,7 +35,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if(healthBar.fillAmount <= 0)
         {
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene("Test");
         }
     }
 

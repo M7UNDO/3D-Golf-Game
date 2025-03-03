@@ -6,30 +6,22 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public PlayerControls playerInput;
     [Header("Movement")]
     [Space(5)]
+
     private Rigidbody rb;
-    [SerializeField] private Transform playerCamera;
-    [SerializeField] private float ballSpeed;
-    private bool isGrounded;
-    public ParticleSystem _particleSystem;
+    public float moveSpeed;
+    public Transform playerOrientation;
+    private Vector3 movementDirection;
     private Vector2 moveInput;
-    private Vector2 lookInput;
-    private Vector2 velocity;
-    public PlayerControls playerInput;
-    public float lookSpeed;
-    public float jumpHeight;
-    public float rotationSpeed;
-   
 
 
-
-
-    [Header("Camera")]
+    [Header("Jumping")]
     [Space(5)]
-    //public float moveSpeed;
-    private float verticalLookRotation;    //private Vector3 velocity;
 
+    public float jumpHeight;
+    private bool isGrounded;
 
     void Start()
     {
@@ -95,10 +87,6 @@ public class PlayerMovement : MonoBehaviour
 
         playerInput.Player.Jump.performed += ctx => Jump();
 
-        
-
-        playerInput.Player.Lookaround.performed += ctx => lookInput = ctx.ReadValue<Vector2>();
-        playerInput.Player.Lookaround.canceled += ctx => lookInput = Vector2.zero;
 
     }
 
@@ -118,6 +106,16 @@ public class PlayerMovement : MonoBehaviour
 
     }
     */
+    public void Move()
+    {
+
+        movementDirection = playerOrientation.forward * moveInput.y + playerOrientation.right * moveInput.x;
+        rb.AddForce(movementDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+
+
+
+
+    }
     public void Jump()
     {
 
@@ -125,31 +123,10 @@ public class PlayerMovement : MonoBehaviour
         {
 
             rb.AddForce(new Vector3 (0f, 4f, 0f), ForceMode.Impulse);
-            //rb.AddForce(Vector3.up * jumpHeight);
-            //healthBar.fillAmount -= damageAmount;
+
         }
         
 
     }
 
-   
-
-    public void Move()
-    {
-
-        Vector3 movementDirection = new Vector3(moveInput.x, 0f, moveInput.y) * ballSpeed;
-
-        rb.AddForce(movementDirection);
-        movementDirection.Normalize();
-
-        if(movementDirection != Vector3.zero)
-        {
-            transform.forward = movementDirection;
-        }
-       
-
-    }
-
-
-    
 }
