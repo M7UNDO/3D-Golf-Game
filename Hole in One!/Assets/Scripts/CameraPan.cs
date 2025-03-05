@@ -29,7 +29,7 @@ public class CameraPan : MonoBehaviour
         xRotation -= MouseY;
 
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);//Clamping view
-        transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
-        playerOrientation.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+        transform.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
+        playerOrientation.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 }

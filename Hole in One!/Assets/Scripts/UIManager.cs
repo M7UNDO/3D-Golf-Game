@@ -16,7 +16,7 @@ public class UIManager : MonoBehaviour
 
     public void RestartGame()
     {
-        SceneManager.LoadScene("Test");//Change back after testing
+        SceneManager.LoadScene("SampleScene");//Change back after testing
     }
 
     public void ControlPanel()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 
@@ -14,67 +15,26 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed;
     public Transform playerOrientation;
     private Vector3 movementDirection;
+    private Vector3 jumpDirection;
     private Vector2 moveInput;
 
 
     [Header("Jumping")]
     [Space(5)]
 
-    public float jumpHeight;
+    public float playerJumpForce;
+    public float playerHeight;
+    public float jumpcoolDown;
+    private bool canJump;
     private bool isGrounded;
+    public LayerMask layer;
+    public float ballDrag;
+    public float multiplyer;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-        Move();
-        
-        //print(healthBar.fillAmount);
-    }
-
-    
-
-    private void OnCollisionEnter(Collision coli)
-    {
-        if (coli.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = true;
-        }
-        else if (coli.gameObject.CompareTag("Wall"))
-        {
-            isGrounded = true;
-        }
-        else
-        {
-            isGrounded = false;
-        }
-        Debug.Log(coli.gameObject);
-    }
-
-    private void OnCollisionExit(Collision coli)
-    {
-        if (coli.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = false;
-        }
-        else if (coli.gameObject.CompareTag("Wall"))
-        {
-            isGrounded = true;
-        }
-        else
-        {
-            isGrounded = true;
-        }
-    }
-
-    private void OnTriggerEnter(Collider coli)
-    {
-        Debug.Log(coli.gameObject);
+        ResetJump();
     }
 
     private void OnEnable()
@@ -83,12 +43,49 @@ public class PlayerMovement : MonoBehaviour
         playerInput.Player.Enable();
 
         playerInput.Player.Movement.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+        print(playerInput);
         playerInput.Player.Movement.canceled += ctx => moveInput = Vector2.zero;
 
-        playerInput.Player.Jump.performed += ctx => Jump();
+        playerInput.Player.Jump.performed += ctx => JumpCheck();
 
 
     }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+        Move();
+        
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, layer);
+        //print(healthBar.fillAmount);  
+        if(isGrounded)
+        {
+            rb.drag = ballDrag;
+        }
+        else
+        {
+            rb.drag = 0;
+        }
+        //print(canJump);
+        //JumpCheck();
+        LimitSpeed();
+    }
+
+    private void LimitSpeed()
+    {
+        Vector3 flatVelocity = new Vector3 (rb.velocity.x,0f, rb.velocity.z);
+        if(flatVelocity.magnitude > moveSpeed)
+        {
+            Vector3 limtedVelocity = flatVelocity.normalized * moveSpeed;
+            rb.velocity = new Vector3(limtedVelocity.x, rb.velocity.y, limtedVelocity.z);
+        }
+    }
+    
+
+   
+
+   
 
     /*
     private void OnDisable()
@@ -108,25 +105,51 @@ public class PlayerMovement : MonoBehaviour
     */
     public void Move()
     {
-
+        
         movementDirection = playerOrientation.forward * moveInput.y + playerOrientation.right * moveInput.x;
-        rb.AddForce(movementDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        //rb.AddForce(movementDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+
+        if (isGrounded)
+        {
+            rb.AddForce(movementDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        }
+        else if (!isGrounded)
+        {
+            rb.AddForce(movementDirection.normalized * moveSpeed * 10f * multiplyer, ForceMode.Force);
+        }
+
+        
 
 
 
 
     }
+
+    private void JumpCheck()
+    {
+        if(canJump && isGrounded)
+        {
+            canJump = false;
+            Jump();
+            Invoke(nameof(ResetJump), jumpcoolDown);  
+        }
+    }
     public void Jump()
     {
-
+        rb.velocity = new Vector3(rb.velocity.x, 0.5f, rb.velocity.z);
         if (isGrounded == true)
         {
-
-            rb.AddForce(new Vector3 (0f, 4f, 0f), ForceMode.Impulse);
-
+            //jumpDirection = new Vector3(0f, 0.5f, 0f);
+            rb.AddForce(transform.up * playerJumpForce, ForceMode.Impulse);
+            print("I JUST JUMPED");
         }
         
 
+    }
+
+    private void ResetJump()
+    {
+        canJump = true;
     }
 
 }
