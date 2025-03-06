@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
         playerInput.Player.Enable();
 
         playerInput.Player.Movement.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
-        print(playerInput);
+        
         playerInput.Player.Movement.canceled += ctx => moveInput = Vector2.zero;
 
         playerInput.Player.Jump.performed += ctx => JumpCheck();
@@ -81,11 +81,6 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector3(limtedVelocity.x, rb.velocity.y, limtedVelocity.z);
         }
     }
-    
-
-   
-
-   
 
     /*
     private void OnDisable()
@@ -117,11 +112,6 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(movementDirection.normalized * moveSpeed * 10f * multiplyer, ForceMode.Force);
         }
-
-        
-
-
-
 
     }
 
