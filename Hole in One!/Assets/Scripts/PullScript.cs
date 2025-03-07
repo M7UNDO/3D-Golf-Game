@@ -4,37 +4,60 @@ using UnityEngine;
 
 public class PullScript : MonoBehaviour
 {
-    float xroat, yroat = 0f;
-    public Rigidbody ball;
-    public float rotatespeed = 5f;
-    public LineRenderer Line;
-    public float shootpower = 30f;
-    private Vector3 movementDirection;
-    public Transform playerOrientation;
+    [Header("Pull And Release Movement")]
 
-    
-    // Update is called once per frame
+    private float xRotation = 0f;
+    private float yRotation = 0f;
+    public float xSensitivity;
+    public float ySensitivity;
+    //public LineRenderer lineRenderer;
+    public Transform playerOrientation;
+    public PullAndRelease pillrelease;
+
+
+
+
+    private void Start()
+    {
+
+
+    }
+
+
+
     void Update()
     {
-        transform.position = ball.position;
-        if (Input.GetMouseButton(0))
+
+        
+
+        Rotate ();
+
+
+    }
+
+    private void Rotate()
+    {
+       
+
+        if (Input.GetMouseButton(1))
         {
 
-            xroat += Input.GetAxis("Mouse X") * rotatespeed;
-            yroat += Input.GetAxis("Mouse Y") * rotatespeed;
-            transform.rotation = Quaternion.Euler(yroat, xroat, 0f);
+            xRotation += Input.GetAxis("Mouse X") * xSensitivity;
+            yRotation += Input.GetAxis("Mouse Y") * ySensitivity;
+            transform.rotation = Quaternion.Euler(yRotation, xRotation, 0f);
+            playerOrientation.rotation = Quaternion.Euler(yRotation, xRotation, 0f);
+            playerOrientation.transform.forward = transform.forward;
+            yRotation = Mathf.Clamp(yRotation, -35f, 35f);
 
-            Line.enabled = true;
-            Line.SetPosition(0, transform.position);
-            Line.SetPosition(1, transform.position + transform.forward * 4f);
-            yroat = Mathf.Clamp(yroat, -35f, 35f);
+          /*  lineRenderer.enabled = true;
+            lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(1, transform.position + transform.forward * 4f);
+           */
         }
-        if (Input.GetMouseButtonUp(0))
-        {
-            movementDirection = ball.transform.forward;
-            ball.AddForce(movementDirection.normalized * shootpower * 10f, ForceMode.Force);
-            Line.enabled = false;
-        }
+
+
+        
+
 
     }
 }
