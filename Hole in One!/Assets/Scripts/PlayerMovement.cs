@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public UIManager uiManager;
     public PlayerControls playerInput;
     [Header("Movement")]
     [Space(5)]
@@ -35,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         ResetJump();
+        
     }
 
     private void OnEnable()
@@ -47,6 +49,8 @@ public class PlayerMovement : MonoBehaviour
         playerInput.Player.Movement.canceled += ctx => moveInput = Vector2.zero;
 
         playerInput.Player.Jump.performed += ctx => JumpCheck();
+
+        playerInput.Player.Pause.performed += ctx => uiManager.Pause();
 
 
     }
@@ -114,6 +118,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
+
+
 
     private void JumpCheck()
     {

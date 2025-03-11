@@ -6,9 +6,17 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     private bool toggle;
-    public GameObject menuUI;
+    [Header("Pause UI Elements")]
+    [Space(5)]
+    
     public GameObject pausePanel;
     public GameObject closeBtn;
+
+    [Header("Menu UI Elements")]
+    [Space(5)]
+    public GameObject menuUI;
+
+ 
     public void QuitGame()
     {
         Application.Quit();
@@ -40,6 +48,7 @@ public class UIManager : MonoBehaviour
 
     public void Pause()
     {
+        print("called");
         toggle = !toggle;
 
         if (toggle)

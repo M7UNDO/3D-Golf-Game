@@ -34,10 +34,23 @@ public class PullAndRelease : MonoBehaviour
     public float xSensitivity;
     public float ySensitivity;
 
+    [Header("Set Power")]
+    [Space(5)]
+
+    public float lowPowerShot = 0.5f;
+    public float mediumPowerShot = 1.2f;
+    public float highPowerShot = 2f;
+    public TextMeshProUGUI powerLevel;
+
+
 
     public void Start()
     {
-       
+        shotPower = mediumPowerShot;
+        powerLevel.color = Color.green;
+        powerLevel.text = "Medium Power Shot";
+        print(shotPower);
+
     }
     void Update()
     {
@@ -56,9 +69,42 @@ public class PullAndRelease : MonoBehaviour
       
     }
 
+    private void OnEnable()
+    {
+        var playerInput = new PlayerControls();
+        playerInput.Player.Enable();
+
+        playerInput.Player.SetPower.performed += ctx => SetPower();
+
+    }
     private void TrackShots()
     {
         NumberOfShots++;
+    }
+
+    private void SetPower()
+    {
+        if(shotPower == mediumPowerShot)
+        {
+            shotPower = highPowerShot;
+            powerLevel.color = Color.red;
+            powerLevel.text = "High Power Shot";
+            print(shotPower);
+        }
+        else if (shotPower == highPowerShot)
+        {
+            shotPower = lowPowerShot;
+            powerLevel.color = Color.yellow;
+            powerLevel.text = "Low Power Shot";
+            print(shotPower);
+        }
+        else if(shotPower == lowPowerShot)
+        {
+            shotPower = mediumPowerShot;
+            powerLevel.color = Color.green;
+            powerLevel.text = "Medium Power Shot";
+            print(shotPower);
+        }
     }
 
     private void ShootBall()

@@ -62,6 +62,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""496f3c82-e393-4ac5-b8fe-3a8bb91a5eb7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SetPower"",
+                    ""type"": ""Button"",
+                    ""id"": ""a89ecff9-850a-4615-ae67-1d28a35348c6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -207,6 +225,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""RotateCam"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""081ffb4c-d511-468d-97f1-bd977ad5e429"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f01bbd56-8a32-4398-989f-1a73e509a46a"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SetPower"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -219,6 +259,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Lookaround = m_Player.FindAction("Lookaround", throwIfNotFound: true);
         m_Player_RotateCam = m_Player.FindAction("RotateCam", throwIfNotFound: true);
+        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        m_Player_SetPower = m_Player.FindAction("SetPower", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -284,6 +326,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Lookaround;
     private readonly InputAction m_Player_RotateCam;
+    private readonly InputAction m_Player_Pause;
+    private readonly InputAction m_Player_SetPower;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -292,6 +336,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Lookaround => m_Wrapper.m_Player_Lookaround;
         public InputAction @RotateCam => m_Wrapper.m_Player_RotateCam;
+        public InputAction @Pause => m_Wrapper.m_Player_Pause;
+        public InputAction @SetPower => m_Wrapper.m_Player_SetPower;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -313,6 +359,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @RotateCam.started += instance.OnRotateCam;
             @RotateCam.performed += instance.OnRotateCam;
             @RotateCam.canceled += instance.OnRotateCam;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
+            @SetPower.started += instance.OnSetPower;
+            @SetPower.performed += instance.OnSetPower;
+            @SetPower.canceled += instance.OnSetPower;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -329,6 +381,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @RotateCam.started -= instance.OnRotateCam;
             @RotateCam.performed -= instance.OnRotateCam;
             @RotateCam.canceled -= instance.OnRotateCam;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
+            @SetPower.started -= instance.OnSetPower;
+            @SetPower.performed -= instance.OnSetPower;
+            @SetPower.canceled -= instance.OnSetPower;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -352,5 +410,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnLookaround(InputAction.CallbackContext context);
         void OnRotateCam(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
+        void OnSetPower(InputAction.CallbackContext context);
     }
 }
