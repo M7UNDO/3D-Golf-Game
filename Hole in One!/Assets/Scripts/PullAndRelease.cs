@@ -2,9 +2,12 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using static UnityEditor.Experimental.GraphView.GraphView;
 using TMPro;
+using Unity.VisualScripting;
 
 public class PullAndRelease : MonoBehaviour
 {
@@ -12,6 +15,7 @@ public class PullAndRelease : MonoBehaviour
     [Space(5)]
     public float NumberOfShots;
     public TextMeshProUGUI shotsTxt;
+    private Transform lastPos;
 
     [Header("Pull And Release Mechanic")]
     [Space(5)]
@@ -109,6 +113,7 @@ public class PullAndRelease : MonoBehaviour
 
     private void ShootBall()
     {
+        
        transform.position = rb.position;
         
         if (Input.GetMouseButton(0))
@@ -122,6 +127,8 @@ public class PullAndRelease : MonoBehaviour
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, transform.position + transform.forward * 4f);
             yRotation = Mathf.Clamp(yRotation, -35f, 35f);
+
+            
         }
         
 
