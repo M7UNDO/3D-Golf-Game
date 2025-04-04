@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
 
         playerInput.Player.Jump.performed += ctx => JumpCheck();
 
-        playerInput.Player.Pause.performed += ctx => uiManager.Pause();
+        //playerInput.Player.Pause.performed += ctx => uiManager.Pause();
 
 
     }

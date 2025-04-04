@@ -13,9 +13,10 @@ public class RestartLevel : MonoBehaviour
 
     public void OnTriggerExit(Collider coli)
     {
+        
         if (coli.gameObject.CompareTag("Player"))
         {
-            SceneManager.LoadScene("SampleScene 1");
+            SceneManager.LoadScene("Level 1");
         }
     }
 

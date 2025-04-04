@@ -6,17 +6,20 @@ using TMPro;
 public class ChangeText : MonoBehaviour
 {
     public TextMeshProUGUI buttonTxt;
-
+    public Color originalColor;
+    public Color highlightColor;
 
     public void ChangeColour()
     {
-        buttonTxt.color = buttonTxt.color;
-        buttonTxt.color = Color.black;
+        //buttonTxt.color = buttonTxt.color;
+        buttonTxt.color = highlightColor;
+        
     }
 
     public void ChangeColourBack()
     {
-        buttonTxt.color = Color.white;
+        buttonTxt.color = originalColor;
+        
 
 
     }

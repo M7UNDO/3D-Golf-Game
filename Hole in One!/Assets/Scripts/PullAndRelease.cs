@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using static UnityEditor.Experimental.GraphView.GraphView;
 using TMPro;
 using Unity.VisualScripting;
 
@@ -31,7 +30,6 @@ public class PullAndRelease : MonoBehaviour
     public float airMultiplyer;
     private Vector3 movementDirection;
     private bool isGrounded;
-    public Transform controlPoint;
 
     [Header("Rotation Sensitivity")]
     [Space(5)]
@@ -41,10 +39,13 @@ public class PullAndRelease : MonoBehaviour
     [Header("Set Power")]
     [Space(5)]
 
+    public float HighShotAirMultiplyer;
+    public float LowMediumAirMultiplyer;
     public float lowPowerShot = 0.5f;
     public float mediumPowerShot = 1.2f;
     public float highPowerShot = 2f;
     public TextMeshProUGUI powerLevel;
+    public TextMeshProUGUI scoreTxt;
 
 
 
@@ -90,6 +91,7 @@ public class PullAndRelease : MonoBehaviour
     {
         if(shotPower == mediumPowerShot)
         {
+            airMultiplyer = LowMediumAirMultiplyer;
             shotPower = highPowerShot;
             powerLevel.color = Color.red;
             powerLevel.text = "High Power Shot";
@@ -97,6 +99,7 @@ public class PullAndRelease : MonoBehaviour
         }
         else if (shotPower == highPowerShot)
         {
+            airMultiplyer = HighShotAirMultiplyer;
             shotPower = lowPowerShot;
             powerLevel.color = Color.yellow;
             powerLevel.text = "Low Power Shot";
@@ -104,6 +107,7 @@ public class PullAndRelease : MonoBehaviour
         }
         else if(shotPower == lowPowerShot)
         {
+            airMultiplyer = LowMediumAirMultiplyer;
             shotPower = mediumPowerShot;
             powerLevel.color = Color.green;
             powerLevel.text = "Medium Power Shot";
@@ -118,7 +122,7 @@ public class PullAndRelease : MonoBehaviour
         
         if (Input.GetMouseButton(0))
         {
-
+            
             xRotation += Input.GetAxis("Mouse X") *  xSensitivity;
             yRotation += Input.GetAxis("Mouse Y") * ySensitivity;
             transform.rotation = Quaternion.Euler(yRotation, xRotation, 0f); // transform the rotation of the golf ball
@@ -134,6 +138,7 @@ public class PullAndRelease : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
+            
             movementDirection = transform.forward;
             if (isGrounded)
             {
