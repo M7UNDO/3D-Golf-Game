@@ -10,42 +10,40 @@ public class UIManager : MonoBehaviour
     private bool toggle;
     private PlayerControls playerInput;
     public PullAndRelease pullAndRelease;
+
+    [Header("Shop and Customisation")]
     public GameObject shopCanvas;
     public GameObject menuCanvas;
+    public GameObject customisationPanel;
+    public GameObject shopPanel;
     public GameObject shopButton;
     public TextMeshProUGUI buttonTxt;
+    public Animator panelAnim;
     public Color originalColor;
-
-    //public GameObject 
-    [Header("Pause UI Elements")]
-    [Space(5)]
-    
-    public GameObject pausePanel;
-    //public GameObject closeBtn;
 
     [Header("Menu UI Elements")]
     [Space(5)]
     public GameObject menuUI;
 
-    
     public void QuitGame()
     {
         Application.Quit();
     }
 
-    public void RestartGame()
+    public void PlayGame()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Level 1");//Change back after testing
+        SceneManager.LoadScene("Level 1");
+        
     }
 
-    public void OnEnable()
+    /*Restarting Method
+    public void RestartGame()
     {
-        var playerInput = new PlayerControls();
-        playerInput.Player.Enable();
-
-        playerInput.Player.Pause.performed += ctx => Pause();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1f;
     }
+    */
 
     public void ControlPanel()
     {
@@ -87,30 +85,29 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void Pause()
+    public void CustomisationPanel()
     {
-        print("called");
         toggle = !toggle;
 
-        if (toggle)
+        if(toggle)
         {
-            pausePanel.SetActive(true);
-            Time.timeScale = 0f;
-        }
-        else
-        {
-            Time.timeScale = 1f;
+            panelAnim.ResetTrigger("slide");
+            panelAnim.SetTrigger("slideBack");
+
         }
 
         if (!toggle)
         {
-            pausePanel.SetActive(false);
-            Time.timeScale = 1f;
+            panelAnim.ResetTrigger("slideBack");
+            panelAnim.SetTrigger("slide");
+
         }
     }
 
     public void LoadMainMenu()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
     }
+
 }

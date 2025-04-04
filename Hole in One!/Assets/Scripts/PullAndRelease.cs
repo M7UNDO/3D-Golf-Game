@@ -47,6 +47,9 @@ public class PullAndRelease : MonoBehaviour
     public TextMeshProUGUI powerLevel;
     public TextMeshProUGUI scoreTxt;
 
+    private PlayerControls playerInput;
+    private System.Action<InputAction.CallbackContext> powerCallback;
+
 
 
     public void Start()
@@ -59,6 +62,8 @@ public class PullAndRelease : MonoBehaviour
     }
     void Update()
     {
+
+        if (Time.timeScale == 0f) return;
         shotsTxt.text = NumberOfShots.ToString();
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, layer);// Shoot a raycast onto the ground to determain what the drag//Potential to use this for different kinds of ground types
         if (isGrounded)
@@ -74,13 +79,20 @@ public class PullAndRelease : MonoBehaviour
       
     }
 
-    private void OnEnable()
+
+    void OnEnable()
     {
-        var playerInput = new PlayerControls();
+        playerInput = new PlayerControls();
         playerInput.Player.Enable();
 
-        playerInput.Player.SetPower.performed += ctx => SetPower();
+        powerCallback = ctx => SetPower();
+        playerInput.Player.SetPower.performed += powerCallback;
+    }
 
+    void OnDisable()
+    {
+        playerInput.Player.SetPower.performed -= powerCallback;
+        playerInput.Player.Disable();
     }
     private void TrackShots()
     {
