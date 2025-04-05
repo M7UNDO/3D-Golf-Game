@@ -39,6 +39,7 @@ public class Profile : MonoBehaviour
 
     void Start()
     {
+        //newSelectedIndex = Save.instance.currentBall;
         GetAvailableAvatars();
         newSelectedIndex = previousSelectedIndex = 0;
     }
@@ -88,5 +89,12 @@ public class Profile : MonoBehaviour
 
         //Change Avatar
         CurrentAvatar.sprite = AvatarsList[newSelectedIndex].Image;
+
+        Debug.Log(newSelectedIndex);
+        Save.instance.currentBall = newSelectedIndex;
+        Save.instance.SaveData();
+
+
+
     }
 }

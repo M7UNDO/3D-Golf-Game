@@ -20,7 +20,7 @@ public class EndGame : MonoBehaviour
     {
         if (coli.gameObject.CompareTag("Player"))
         {
-            
+            Time.timeScale = 0f;
             EndPanel.SetActive(true);
             
             foreach (GameObject hud in hudElements)
