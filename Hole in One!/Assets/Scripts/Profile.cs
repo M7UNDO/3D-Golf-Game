@@ -39,11 +39,12 @@ public class Profile : MonoBehaviour
 
     void Start()
     {
-        //newSelectedIndex = Save.instance.currentBall;
+        
         GetAvailableAvatars();
+        newSelectedIndex = Save.instance.currentBall;
         newSelectedIndex = previousSelectedIndex = 0;
     }
-
+    /*
     void GetAvailableAvatars()
     {
         for (int i = 0; i < Shop.Instance.ShopItemsList.Count; i++)
@@ -56,6 +57,34 @@ public class Profile : MonoBehaviour
         }
 
         SelectAvatar(newSelectedIndex);
+    }
+
+    */
+
+    void GetAvailableAvatars()
+    {
+        if (AvatarsList == null)
+            AvatarsList = new List<Avatar>();
+
+        for (int i = 0; i < Shop.Instance.ShopItemsList.Count; i++)
+        {
+            var item = Shop.Instance.ShopItemsList[i];
+            if (item.IsPurchased)
+            {
+                Avatar av = new Avatar() { Image = item.Image };
+                AvatarsList.Add(av);
+
+                // Instantiate UI avatar in the same order
+                g = Instantiate(AvatarUITemplate, AvatarsScrollView);
+                g.transform.GetChild(0).GetComponent<Image>().sprite = av.Image;
+
+                // Add event with same index as in AvatarsList
+                g.transform.GetComponent<Button>().AddEventListener(AvatarsList.Count - 1, OnAvatarClick);
+            }
+        }
+
+        SelectAvatar(newSelectedIndex);
+        //Debug.Log(newSelectedIndex);
     }
 
     public void AddAvatar(Sprite img)

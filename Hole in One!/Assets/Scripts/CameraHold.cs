@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,9 +6,19 @@ using UnityEngine;
 public class CameraHold : MonoBehaviour
 {
     public Transform target; //For the camera rotation
-    public float RotationSpeed; 
+    public float RotationSpeed;
+    public CinemachineVirtualCamera cinemachine;
 
-    
+    [Header("Player")]
+    public GameObject ball;
+    private Transform ballTransform;
+
+    private void Start()
+    {
+        ballTransform = ball.transform.GetChild(0).GetComponent<Transform>();
+        cinemachine.Follow = ballTransform;
+    }
+
     private void FixedUpdate()
     {
         //store x position and update y and z

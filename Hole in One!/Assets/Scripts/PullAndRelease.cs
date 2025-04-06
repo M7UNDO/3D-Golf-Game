@@ -10,6 +10,9 @@ using Unity.VisualScripting;
 
 public class PullAndRelease : MonoBehaviour
 {
+    [Header("Player")]
+
+    public GameObject ball;
     [Header("Shot Count")]
     [Space(5)]
     public float NumberOfShots;
@@ -18,7 +21,7 @@ public class PullAndRelease : MonoBehaviour
 
     [Header("Pull And Release Mechanic")]
     [Space(5)]
-    public Rigidbody rb;
+    private Rigidbody rb;
     public float playerHeight;
     public LayerMask layer;
     public float Drag;
@@ -45,7 +48,6 @@ public class PullAndRelease : MonoBehaviour
     public float mediumPowerShot = 1.2f;
     public float highPowerShot = 2f;
     public TextMeshProUGUI powerLevel;
-    public TextMeshProUGUI scoreTxt;
 
     private PlayerControls playerInput;
     private System.Action<InputAction.CallbackContext> powerCallback;
@@ -54,10 +56,14 @@ public class PullAndRelease : MonoBehaviour
 
     public void Start()
     {
+        rb = ball.transform.GetChild(0).GetComponent<Rigidbody>();
+        lineRenderer = ball.transform.GetChild(0).GetComponent<LineRenderer>();
         shotPower = mediumPowerShot;
         powerLevel.color = Color.green;
         powerLevel.text = "Medium Power Shot";
         print(shotPower);
+
+        
 
     }
     void Update()

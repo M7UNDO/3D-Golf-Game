@@ -37,13 +37,12 @@ public class UIManager : MonoBehaviour
         
     }
 
-    /*Restarting Method
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1f;
     }
-    */
+    
 
     public void ControlPanel()
     {
@@ -102,6 +101,8 @@ public class UIManager : MonoBehaviour
             panelAnim.SetTrigger("slide");
 
         }
+
+        print("CustomisationPanel");
     }
 
     public void LoadMainMenu()

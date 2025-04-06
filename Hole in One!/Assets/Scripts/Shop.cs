@@ -23,8 +23,10 @@ public class Shop : MonoBehaviour
     public class ShopItem
     {
         public Sprite Image;
+        //public GameObject BallPrefab;
         public int Price;
         public bool IsPurchased = false;
+        public int Order;
     }
 
     public List<ShopItem> ShopItemsList;
