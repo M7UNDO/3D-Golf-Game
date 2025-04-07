@@ -43,7 +43,11 @@ public class Profile : MonoBehaviour
         GetAvailableAvatars();
         newSelectedIndex = Save.instance.currentBall;
         newSelectedIndex = previousSelectedIndex = 0;
+
+
     }
+
+
     /*
     void GetAvailableAvatars()
     {
@@ -118,6 +122,12 @@ public class Profile : MonoBehaviour
 
         //Change Avatar
         CurrentAvatar.sprite = AvatarsList[newSelectedIndex].Image;
+
+        /*if(newSelectedIndex == 0)
+        {
+            newSelectedIndex = 0;
+        }
+        */
 
         Debug.Log(newSelectedIndex);
         Save.instance.currentBall = newSelectedIndex;

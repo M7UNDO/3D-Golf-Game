@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     public GameObject shopButton;
     public TextMeshProUGUI buttonTxt;
     public Animator panelAnim;
+    public Animator ShopAnim;
     public Color originalColor;
 
     [Header("Menu UI Elements")]
@@ -73,13 +74,15 @@ public class UIManager : MonoBehaviour
 
         if (toggle)
         {
-            shopCanvas.SetActive(true);
+            ShopAnim.ResetTrigger("closeShop");
+            ShopAnim.SetTrigger("openShop");
             menuCanvas.SetActive(false);
         }
 
         if (!toggle)
         {
-            shopCanvas.SetActive(false);
+            ShopAnim.ResetTrigger("openShop");
+            ShopAnim.SetTrigger("closeShop");
             menuCanvas.SetActive(true);
         }
     }
