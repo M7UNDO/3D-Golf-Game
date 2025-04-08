@@ -42,9 +42,7 @@ public class Profile : MonoBehaviour
 
         GetAvailableAvatars();
         newSelectedIndex = Save.instance.currentBall;
-        previousSelectedIndex = newSelectedIndex;
-        Debug.Log(Save.instance.currentBall);
-        //newSelectedIndex = previousSelectedIndex = 0;
+        newSelectedIndex = previousSelectedIndex = 0;
     }
     /*
     void GetAvailableAvatars()
