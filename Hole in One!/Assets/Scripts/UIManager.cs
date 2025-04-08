@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour
     [Space(5)]
     public GameObject menuUI;
 
+    
     public void QuitGame()
     {
         Application.Quit();

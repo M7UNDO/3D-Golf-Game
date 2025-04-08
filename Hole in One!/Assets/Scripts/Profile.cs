@@ -40,7 +40,7 @@ public class Profile : MonoBehaviour
     void Start()
     {
 
-        GetAvailableAvatars();
+        StartCoroutine(DelayedGetAvatars());
         newSelectedIndex = Save.instance.currentBall;
         newSelectedIndex = previousSelectedIndex = 0;
     }
@@ -61,10 +61,16 @@ public class Profile : MonoBehaviour
 
     */
 
-    void GetAvailableAvatars()
+    public void GetAvailableAvatars()
     {
         if (AvatarsList == null)
             AvatarsList = new List<Avatar>();
+
+        // Clear scroll view before populating
+        foreach (Transform child in AvatarsScrollView)
+        {
+            Destroy(child.gameObject);
+        }
 
         for (int i = 0; i < Shop.Instance.ShopItemsList.Count; i++)
         {
@@ -74,18 +80,21 @@ public class Profile : MonoBehaviour
                 Avatar av = new Avatar() { Image = item.Image };
                 AvatarsList.Add(av);
 
-                // Instantiate UI avatar in the same order
                 g = Instantiate(AvatarUITemplate, AvatarsScrollView);
                 g.transform.GetChild(0).GetComponent<Image>().sprite = av.Image;
-
-                // Add event with same index as in AvatarsList
-                g.transform.GetComponent<Button>().AddEventListener(AvatarsList.Count - 1, OnAvatarClick);
+                g.GetComponent<Button>().AddEventListener(AvatarsList.Count - 1, OnAvatarClick);
             }
         }
 
-        SelectAvatar(newSelectedIndex);
-        //Debug.Log(newSelectedIndex);
+        //  Only try to select if there’s at least one avatar
+        if (AvatarsList.Count > 0)
+        {
+            newSelectedIndex = Mathf.Clamp(Save.instance.currentBall, 0, AvatarsList.Count - 1);
+            previousSelectedIndex = newSelectedIndex;
+            SelectAvatar(newSelectedIndex);
+        }
     }
+
 
     public void AddAvatar(Sprite img)
     {
@@ -122,5 +131,11 @@ public class Profile : MonoBehaviour
         Debug.Log(newSelectedIndex);
 
 
+    }
+
+    System.Collections.IEnumerator DelayedGetAvatars()
+    {
+        yield return new WaitForSeconds(0.1f); // delay a bit so Shop has finished
+        GetAvailableAvatars();
     }
 }

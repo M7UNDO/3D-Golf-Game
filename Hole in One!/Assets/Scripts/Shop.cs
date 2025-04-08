@@ -43,7 +43,10 @@ public class Shop : MonoBehaviour
     
     void Start()
     {
+        Profile.Instance.GetAvailableAvatars();
+        SyncShopItemsWithSave();
         int len = ShopItemsList.Count;
+
         for (int i = 0; i < len; i++)
         {
             g = Instantiate(ItemTemplate, ShopScrollView);
@@ -58,6 +61,17 @@ public class Shop : MonoBehaviour
         }
     }
 
+    void SyncShopItemsWithSave()
+    {
+        for (int i = 0; i < ShopItemsList.Count; i++)
+        {
+            if (i < Save.instance.ballsUnlocked.Length)
+            {
+                ShopItemsList[i].IsPurchased = Save.instance.ballsUnlocked[i];
+            }
+        }
+    }
+
     void OnShopItemBtnClicked(int itemIndex)
     {
         if (Game.Instance.HasEnoughCoins(ShopItemsList[itemIndex].Price))
@@ -65,6 +79,8 @@ public class Shop : MonoBehaviour
             Game.Instance.UseCoins(ShopItemsList[itemIndex].Price);
             //purchase Item
             ShopItemsList[itemIndex].IsPurchased = true;
+            Save.instance.ballsUnlocked[itemIndex] = true;
+            Save.instance.SaveData();
 
             //disable the button
             buyBtn = ShopScrollView.GetChild(itemIndex).GetChild(2).GetComponent<Button>();
@@ -80,6 +96,8 @@ public class Shop : MonoBehaviour
             NoCoinsAnimation.SetTrigger("NoCoins");
             Debug.Log("You don't have enough coins!!");
         }
+
+        
     }
 
     void DisableBuyButton()

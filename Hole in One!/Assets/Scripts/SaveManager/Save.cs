@@ -12,7 +12,7 @@ public class Save: MonoBehaviour
 
     public int currentBall;
     public int Coins;
-    public int Shop;
+    public bool[] ballsUnlocked = new bool[10] { true, false, false, false, false, false, false, false, false, false };
 
     private void Awake()
     {
@@ -35,17 +35,18 @@ public class Save: MonoBehaviour
 
             currentBall = data.currentBall;
             Coins = data.Coins;
-            Shop = data.Shop;
+            ballsUnlocked = data.ballsUnlocked;
             file.Close();
+            
+            if(data.ballsUnlocked == null)
+            {
+                ballsUnlocked = new bool[10] { true, false, false, false, false, false, false, false, false, false };
 
+            }
            
-            print("Save found" + currentBall);
+            
         }
-        else
-        {
-           
-            print("No save found");
-        }
+        
     }
 
     public void SaveData()
@@ -56,11 +57,12 @@ public class Save: MonoBehaviour
 
         data.currentBall = currentBall;
         data.Coins  = Coins;
-        data.Shop = Shop;
+        data.ballsUnlocked = ballsUnlocked;
         bf.Serialize(file, data);
         file.Close();
+        //print("Save found" + currentBall);
 
-        print("saved" + currentBall);
+
     }
 
     [Serializable]
@@ -68,6 +70,8 @@ public class Save: MonoBehaviour
     {
         public int currentBall;
         public int Coins;
-        public int Shop;
+        public bool[] ballsUnlocked = new bool[10] { true, false, false, false, false, false, false, false, false, false };
+
+
     }
 }

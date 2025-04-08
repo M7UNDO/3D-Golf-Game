@@ -6813,7 +6813,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentBall: 0
   Coins: 0
-  Shop: 0
+  ballsUnlocked: 
 --- !u!4 &1200402375
 Transform:
   m_ObjectHideFlags: 0
@@ -8943,6 +8943,7 @@ MonoBehaviour:
   scoreTxt: {fileID: 0}
   coinsEarnedTxt: {fileID: 0}
   endScore: 0
+  coinsEarned: 
 --- !u!64 &1773382802
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10759,7 +10760,7 @@ MonoBehaviour:
   ShopItemsList:
   - Image: {fileID: 21300000, guid: fa45791733735084eb51adfdee29047d, type: 3}
     Price: 0
-    IsPurchased: 1
+    IsPurchased: 0
     Order: 0
   - Image: {fileID: 21300000, guid: a491f8bfac326e945b0af41be1f17046, type: 3}
     Price: 100

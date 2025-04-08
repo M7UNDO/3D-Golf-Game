@@ -1,67 +1,39 @@
-using System;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using TMPro;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
 
 public class SaveManager : MonoBehaviour
 {
-    public static SaveManager instance { get; private set; }
+    public static SaveManager Instance;
 
-    //What we want to save
-    public int currentCar;
-    public int money;
-    public bool[] clubsUnlocked = new bool[4] { true, false, false, false };
 
-    private void Awake()
+    void Awake()
     {
-        if (instance != null && instance != this)
-            Destroy(gameObject);
-        else
-            instance = this;
-
-        DontDestroyOnLoad(gameObject);
-        Load();
-    }
-
-    public void Load()
-    {
-        if (File.Exists(Application.persistentDataPath + "/playerInfo.dat"))
+        if (Instance == null)
         {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
-            PlayerData_Storage data = (PlayerData_Storage)bf.Deserialize(file);
-
-            money = data.money;
-            currentCar = data.currentClub;
-            clubsUnlocked = data.clubsUnlocked;
-
-            if (data.clubsUnlocked == null)
-                clubsUnlocked = new bool[4] { true, false, false, false };
-
-            file.Close();
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
-    public void Save()
+    public void SavePurchasedItems(List<int> purchasedIndices)
     {
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/playerInfo.dat");
-        PlayerData_Storage data = new PlayerData_Storage();
-
-        data.money = money;
-        data.currentClub = currentCar;
-        data.clubsUnlocked = clubsUnlocked;
-
-        bf.Serialize(file, data);
-        file.Close();
+        string data = string.Join(",", purchasedIndices);
+        PlayerPrefs.SetString("PurchasedItems", data);
+        PlayerPrefs.Save();
     }
-}
 
-[Serializable]
-class PlayerData_Storage
-{
-    public int currentClub;
-    public int money;
-    public bool[] clubsUnlocked;
+    public List<int> LoadPurchasedItems()
+    {
+        string data = PlayerPrefs.GetString("PurchasedItems", "");
+        if (string.IsNullOrEmpty(data)) return new List<int>();
+
+        return data.Split(',').Select(int.Parse).ToList();
+    }
+
+
 }
