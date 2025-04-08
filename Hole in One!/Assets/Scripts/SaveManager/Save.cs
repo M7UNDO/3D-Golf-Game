@@ -12,6 +12,7 @@ public class Save: MonoBehaviour
 
     public int currentBall;
     public int Coins;
+    public int Shop;
 
     private void Awake()
     {
@@ -34,6 +35,7 @@ public class Save: MonoBehaviour
 
             currentBall = data.currentBall;
             Coins = data.Coins;
+            Shop = data.Shop;
             file.Close();
 
            
@@ -54,6 +56,7 @@ public class Save: MonoBehaviour
 
         data.currentBall = currentBall;
         data.Coins  = Coins;
+        data.Shop = Shop;
         bf.Serialize(file, data);
         file.Close();
 
@@ -65,5 +68,6 @@ public class Save: MonoBehaviour
     {
         public int currentBall;
         public int Coins;
+        public int Shop;
     }
 }

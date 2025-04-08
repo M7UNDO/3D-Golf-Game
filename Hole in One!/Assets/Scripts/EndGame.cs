@@ -10,11 +10,17 @@ public class EndGame : MonoBehaviour
     public GameObject[] hudElements;
     public PullAndRelease pullAndRelease;
     public TextMeshProUGUI scoreTxt;
+    public TextMeshProUGUI coinsEarnedTxt;
     public float endScore;
+    //public int [] coinsEarned;
 
     public void EndScore()
     {
         scoreTxt.text = pullAndRelease.NumberOfShots.ToString();
+
+        
+
+        
     }
     private void OnCollisionEnter(Collision coli)
     {

@@ -40,6 +40,7 @@ public class Shop : MonoBehaviour
     Button buyBtn;
 
 
+    
     void Start()
     {
         int len = ShopItemsList.Count;

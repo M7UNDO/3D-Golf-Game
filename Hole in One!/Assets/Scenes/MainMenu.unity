@@ -6813,7 +6813,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentBall: 0
   Coins: 0
-  purchasedItems: 
+  Shop: 0
 --- !u!4 &1200402375
 Transform:
   m_ObjectHideFlags: 0
@@ -8941,6 +8941,7 @@ MonoBehaviour:
   hudElements: []
   pullAndRelease: {fileID: 0}
   scoreTxt: {fileID: 0}
+  coinsEarnedTxt: {fileID: 0}
   endScore: 0
 --- !u!64 &1773382802
 MeshCollider:
