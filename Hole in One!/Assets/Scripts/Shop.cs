@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
@@ -23,7 +24,6 @@ public class Shop : MonoBehaviour
     public class ShopItem
     {
         public Sprite Image;
-        //public GameObject BallPrefab;
         public int Price;
         public bool IsPurchased = false;
         public int Order;
@@ -38,7 +38,7 @@ public class Shop : MonoBehaviour
     [SerializeField] Transform ShopScrollView;
     [SerializeField] GameObject ShopPanel;
     Button buyBtn;
-    
+
 
     void Start()
     {
@@ -86,14 +86,6 @@ public class Shop : MonoBehaviour
         buyBtn.interactable = false;
         buyBtn.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "PURCHASED";
     }
-    /*---------------------Open & Close shop--------------------------*/
-    public void OpenShop()
-    {
-        ShopPanel.SetActive(true);
-    }
 
-    public void CloseShop()
-    {
-        ShopPanel.SetActive(false);
-    }
+    
 }

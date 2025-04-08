@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using TMPro;
@@ -10,6 +11,8 @@ public class Save: MonoBehaviour
     // Start is called before the first frame update
 
     public int currentBall;
+    public int Coins;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -30,7 +33,16 @@ public class Save: MonoBehaviour
             PlayerData_Storage data = (PlayerData_Storage)bf.Deserialize(file);
 
             currentBall = data.currentBall;
+            Coins = data.Coins;
             file.Close();
+
+           
+            print("Save found" + currentBall);
+        }
+        else
+        {
+           
+            print("No save found");
         }
     }
 
@@ -41,13 +53,17 @@ public class Save: MonoBehaviour
         PlayerData_Storage data = new PlayerData_Storage();
 
         data.currentBall = currentBall;
+        data.Coins  = Coins;
         bf.Serialize(file, data);
         file.Close();
+
+        print("saved" + currentBall);
     }
 
     [Serializable]
     class PlayerData_Storage
     {
         public int currentBall;
+        public int Coins;
     }
 }

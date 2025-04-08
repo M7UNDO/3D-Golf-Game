@@ -6812,6 +6812,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentBall: 0
+  Coins: 0
+  purchasedItems: 
 --- !u!4 &1200402375
 Transform:
   m_ObjectHideFlags: 0
@@ -7082,7 +7084,6 @@ MonoBehaviour:
   allCoinsUIText:
   - {fileID: 1101928998}
   - {fileID: 1550896999}
-  Coins: 1000
 --- !u!1 &1266372616
 GameObject:
   m_ObjectHideFlags: 0

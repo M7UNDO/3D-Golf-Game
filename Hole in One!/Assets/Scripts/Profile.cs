@@ -39,15 +39,13 @@ public class Profile : MonoBehaviour
 
     void Start()
     {
-        
+
         GetAvailableAvatars();
         newSelectedIndex = Save.instance.currentBall;
-        newSelectedIndex = previousSelectedIndex = 0;
-
-
+        previousSelectedIndex = newSelectedIndex;
+        Debug.Log(Save.instance.currentBall);
+        //newSelectedIndex = previousSelectedIndex = 0;
     }
-
-
     /*
     void GetAvailableAvatars()
     {
@@ -119,20 +117,11 @@ public class Profile : MonoBehaviour
         newSelectedIndex = AvatarIndex;
         AvatarsScrollView.GetChild(previousSelectedIndex).GetComponent<Image>().color = DefaultAvatarColor;
         AvatarsScrollView.GetChild(newSelectedIndex).GetComponent<Image>().color = ActiveAvatarColor;
-
         //Change Avatar
         CurrentAvatar.sprite = AvatarsList[newSelectedIndex].Image;
-
-        /*if(newSelectedIndex == 0)
-        {
-            newSelectedIndex = 0;
-        }
-        */
-
-        Debug.Log(newSelectedIndex);
         Save.instance.currentBall = newSelectedIndex;
         Save.instance.SaveData();
-
+        Debug.Log(newSelectedIndex);
 
 
     }

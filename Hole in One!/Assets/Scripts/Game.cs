@@ -26,28 +26,48 @@ public class Game : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI[] allCoinsUIText;
 
-    public int Coins;
+    //public int Coins;
 
     void Start()
     {
+        UpdateAllCoinsUIText();
+
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            Save.instance.Coins += 100;
+            Save.instance.SaveData();
+            print("+100");
+        }
+
+        else if (Input.GetKeyDown(KeyCode.X))
+        {
+            Save.instance.Coins -= 100;
+            Save.instance.SaveData();
+            print("-100");
+        }
+
         UpdateAllCoinsUIText();
     }
 
     public void UseCoins(int amount)
     {
-        Coins -= amount;
+        Save.instance.Coins -= amount;
     }
 
     public bool HasEnoughCoins(int amount)
     {
-        return (Coins >= amount);
+        return (Save.instance.Coins >= amount);
     }
 
     public void UpdateAllCoinsUIText()
     {
         for (int i = 0; i < allCoinsUIText.Length; i++)
         {
-            allCoinsUIText[i].text = Coins.ToString();
+            allCoinsUIText[i].text = Save.instance.Coins.ToString();
         }
     }
 
