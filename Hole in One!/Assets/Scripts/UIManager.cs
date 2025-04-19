@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     private bool toggle;
     private PlayerControls playerInput;
-    public PullAndRelease pullAndRelease;
+    public Animator autoSaveanim;
 
     [Header("Shop and Customisation")]
     public GameObject shopCanvas;
@@ -17,16 +18,27 @@ public class UIManager : MonoBehaviour
     public GameObject customisationPanel;
     public GameObject shopPanel;
     public GameObject shopButton;
-    public TextMeshProUGUI buttonTxt;
     public Animator panelAnim;
     public Animator ShopAnim;
-    public Color originalColor;
 
-    [Header("Menu UI Elements")]
+    [Header("Controls UI Elements")]
     [Space(5)]
+
     public GameObject menuUI;
 
-    
+    [Header("Controls UI Elements")]
+    [Space(5)]
+
+    public GameObject audioPanel;
+
+    [Header("Level UI Elements")]
+    [Space(5)]
+
+    public GameObject levelPanel;
+    private void Start()
+    {
+        autoSaveanim.SetInteger("autoSave", 0);
+    }
     public void QuitGame()
     {
         Application.Quit();
@@ -52,7 +64,6 @@ public class UIManager : MonoBehaviour
 
         if (toggle == false)
         {
-            buttonTxt.color = originalColor;
             menuUI.SetActive(false);
             shopButton.SetActive(true);
 
@@ -69,6 +80,41 @@ public class UIManager : MonoBehaviour
         
     }
 
+    public void AudioPanel()
+    {
+        toggle = !toggle;
+
+        if (toggle == false)
+        {
+            audioPanel.SetActive(false);
+            shopButton.SetActive(true);
+        }
+
+        if (toggle)
+        {
+            audioPanel.SetActive(true);
+            shopButton.SetActive(false);
+        }
+
+
+    }
+
+    public void LevelPanel()
+    {
+        toggle = !toggle;
+
+        if (toggle == false)
+        {
+            levelPanel.SetActive(false);
+            shopButton.SetActive(true);
+        }
+
+        if (toggle)
+        {
+            levelPanel.SetActive(true);
+            shopButton.SetActive(false);
+        }
+    }
     public void ShopOpenClose()
     {
         toggle = !toggle;
