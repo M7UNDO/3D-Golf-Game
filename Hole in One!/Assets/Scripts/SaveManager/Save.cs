@@ -26,6 +26,19 @@ public class Save: MonoBehaviour
         Load();
     }
 
+    public void ResetSave()
+    {
+        if (File.Exists(Application.persistentDataPath + "/playerInfo.dat"))
+            File.Delete(Application.persistentDataPath + "/playerInfo.dat");
+
+        currentBall = 0;
+        Coins = 0;
+        ballsUnlocked = new bool[10] { true, false, false, false, false, false, false, false, false, false };
+        LevelsUnlocked = new bool[4] { true, false, false, false };
+
+        SaveData();
+    }
+
     public void Load()
     {
         if(File.Exists(Application.persistentDataPath + "/playerInfo.dat"))

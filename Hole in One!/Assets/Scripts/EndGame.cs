@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class EndGame : MonoBehaviour
 {
@@ -13,22 +14,23 @@ public class EndGame : MonoBehaviour
     public TextMeshProUGUI coinsEarnedTxt;
     public float endScore;
     public int [] coinsEarned;
+    public int [] shotsTaken;
 
     public void EndScore()
     {
         scoreTxt.text = pullAndRelease.NumberOfShots.ToString();
 
-        if(pullAndRelease.NumberOfShots <= 4)
+        if(pullAndRelease.NumberOfShots <= shotsTaken[0])
         {
             Save.instance.Coins += coinsEarned[0];
             coinsEarnedTxt.text = coinsEarned[0].ToString();
         }
-        else if(pullAndRelease.NumberOfShots <= 6)
+        else if(pullAndRelease.NumberOfShots <= shotsTaken[1])
         {
             Save.instance.Coins += coinsEarned[1];
             coinsEarnedTxt.text = coinsEarned[1].ToString();
         }
-        else if(pullAndRelease.NumberOfShots <= 10)
+        else if(pullAndRelease.NumberOfShots <= shotsTaken[2])
         {
             Save.instance.Coins += coinsEarned[2];
             coinsEarnedTxt.text = coinsEarned[2].ToString();
@@ -53,6 +55,14 @@ public class EndGame : MonoBehaviour
         }
 
         EndScore();
+
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int currentLevelIndex = currentSceneIndex - 1; // Level 1 = index 0
+
+        FindObjectOfType<LoadLevel>().CompleteLevel(currentLevelIndex);
+
+        //Save coins + unlocked progress
+        Save.instance.SaveData();
 
     }
 }

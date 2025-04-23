@@ -80,6 +80,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Objective"",
+                    ""type"": ""Button"",
+                    ""id"": ""95217095-6db1-4064-9f4d-413bbcf0aef2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -247,6 +256,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""SetPower"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ca0a2add-7205-44b9-8530-fc4f6f810ae7"",
+                    ""path"": ""<Keyboard>/o"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Objective"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -261,6 +281,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_RotateCam = m_Player.FindAction("RotateCam", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_SetPower = m_Player.FindAction("SetPower", throwIfNotFound: true);
+        m_Player_Objective = m_Player.FindAction("Objective", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -328,6 +349,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_RotateCam;
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_SetPower;
+    private readonly InputAction m_Player_Objective;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -338,6 +360,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @RotateCam => m_Wrapper.m_Player_RotateCam;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @SetPower => m_Wrapper.m_Player_SetPower;
+        public InputAction @Objective => m_Wrapper.m_Player_Objective;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -365,6 +388,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SetPower.started += instance.OnSetPower;
             @SetPower.performed += instance.OnSetPower;
             @SetPower.canceled += instance.OnSetPower;
+            @Objective.started += instance.OnObjective;
+            @Objective.performed += instance.OnObjective;
+            @Objective.canceled += instance.OnObjective;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -387,6 +413,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SetPower.started -= instance.OnSetPower;
             @SetPower.performed -= instance.OnSetPower;
             @SetPower.canceled -= instance.OnSetPower;
+            @Objective.started -= instance.OnObjective;
+            @Objective.performed -= instance.OnObjective;
+            @Objective.canceled -= instance.OnObjective;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -412,5 +441,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnRotateCam(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnSetPower(InputAction.CallbackContext context);
+        void OnObjective(InputAction.CallbackContext context);
     }
 }

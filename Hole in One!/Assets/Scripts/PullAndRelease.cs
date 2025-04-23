@@ -7,9 +7,14 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using TMPro;
 using Unity.VisualScripting;
+using System.Threading;
 
 public class PullAndRelease : MonoBehaviour
 {
+    public bool isLevel1 = false;
+    public bool isLevel2 = false;
+    public LevelUI levelUI;
+    public Color ObjectivePassedColour;
     [Header("Player")]
 
     public GameObject ball;
@@ -59,18 +64,34 @@ public class PullAndRelease : MonoBehaviour
         rb = ball.transform.GetChild(0).GetComponent<Rigidbody>();
         lineRenderer = ball.transform.GetChild(0).GetComponent<LineRenderer>();
         shotPower = mediumPowerShot;
-        powerLevel.color = Color.green;
-        powerLevel.text = "Medium Power Shot";
-        print(shotPower);
 
-        
+        if(isLevel1 == false)
+        {
+            powerLevel.color = Color.green;
+            powerLevel.text = "Medium Power Shot";
+        }
+
+        if (isLevel2 == true)
+        {
+            StartCoroutine(BallDrag());
+        }
+
+
 
     }
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Save.instance.ResetSave();
+        }
 
         if (Time.timeScale == 0f) return;
-        shotsTxt.text = NumberOfShots.ToString();
+        if(isLevel1 ==false)
+        {
+            shotsTxt.text = NumberOfShots.ToString();
+        }
+        
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, layer);// Shoot a raycast onto the ground to determain what the drag//Potential to use this for different kinds of ground types
         if (isGrounded)
         {
@@ -80,7 +101,18 @@ public class PullAndRelease : MonoBehaviour
         {
              rb.drag = 0;
         }
+
+        if(isLevel1 == true || isLevel2 == true)
+        {
+            if(levelUI.tutorialUI[1].color == ObjectivePassedColour && levelUI.tutorialUI[2].color == ObjectivePassedColour)
+            {
+                levelUI.tutorialUI[0].color = ObjectivePassedColour;
+                StartCoroutine(DisplayUIOff());
+            }
+        }
        
+
+
         ShootBall();
       
     }
@@ -107,7 +139,19 @@ public class PullAndRelease : MonoBehaviour
 
     private void SetPower()
     {
-        if(shotPower == mediumPowerShot)
+        if (isLevel1 == true)
+        {
+            return;
+
+        }
+
+        if (isLevel2 == true)
+        {
+
+            levelUI.tutorialUI[2].color = ObjectivePassedColour;
+            levelUI.tutorialarrow[1].color = ObjectivePassedColour;
+        }
+        if (shotPower == mediumPowerShot)
         {
             airMultiplyer = LowMediumAirMultiplyer;
             shotPower = highPowerShot;
@@ -150,7 +194,48 @@ public class PullAndRelease : MonoBehaviour
             lineRenderer.SetPosition(1, transform.position + transform.forward * 4f);
             yRotation = Mathf.Clamp(yRotation, -35f, 35f);
 
-            
+
+            if(isLevel1 == true)
+            {
+                if (Mathf.Abs(xRotation) > 0.01f)
+                {
+                    if (xRotation > 0)
+                    {
+                        levelUI.tutorialUI[1].color = ObjectivePassedColour;
+                        levelUI.tutorialarrow[0].color = ObjectivePassedColour;
+                    }
+                    else
+                    {
+                        levelUI.tutorialUI[1].color = ObjectivePassedColour;
+                        levelUI.tutorialarrow[0].color = ObjectivePassedColour;
+                    }
+                }
+
+                
+            }
+
+            if (isLevel2 == true)
+            {
+                if (Mathf.Abs(xRotation) > 0.01f)
+                {
+                    if (yRotation > 0)
+                    {
+                        levelUI.tutorialUI[1].color = ObjectivePassedColour;
+                        levelUI.tutorialarrow[0].color = ObjectivePassedColour;
+                    }
+                    else
+                    {
+                        levelUI.tutorialUI[1].color = ObjectivePassedColour;
+                        levelUI.tutorialarrow[0].color = ObjectivePassedColour;
+                    }
+                }
+
+
+            }
+
+
+
+
         }
         
 
@@ -159,7 +244,7 @@ public class PullAndRelease : MonoBehaviour
             
             movementDirection = transform.forward;
             if (isGrounded)
-            {
+            {   
                 rb.AddForce(movementDirection.normalized * shotPower * 10f, ForceMode.Impulse);
                 lineRenderer.enabled = false;
             }
@@ -170,9 +255,47 @@ public class PullAndRelease : MonoBehaviour
 
             TrackShots();
             print(NumberOfShots);
-            
+
+            if(isLevel1 == true)
+            {
+                levelUI.tutorialUI[2].color = ObjectivePassedColour;
+                levelUI.tutorialarrow[1].color = ObjectivePassedColour;
+            }
+
+            if (isLevel2 == true)
+            {
+                levelUI.tutorialUI[2].color = ObjectivePassedColour;
+                levelUI.tutorialarrow[1].color = ObjectivePassedColour;
+            }
+
+
         }
         
         
+    }
+
+    IEnumerator DisplayUIOff()
+    {
+        yield return new WaitForSeconds(3f);
+        if(isLevel1 == true)
+        {
+            levelUI.UIElements[1].SetActive(false);
+
+        }
+
+        if (isLevel2 == true)
+        {
+            levelUI.UIElements[1].SetActive(false);
+
+        }
+
+    }
+
+    IEnumerator BallDrag()
+    {
+        Drag = 10f;
+        yield return new WaitForSeconds(0.1f);
+        Drag = 2f;
+
     }
 }

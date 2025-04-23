@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 153eb3c9973607a439a87e381394b1eb
+guid: a6539966811c38246b99f2c26d61b30a
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Grass.001
-    second: {fileID: 2100000, guid: 298366d5069fc2a4f9a7d0224d744f22, type: 2}
+      name: Hole mat
+    second: {fileID: 2100000, guid: 310c6d6e12bab7c4f8909ecd5274b655, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -29,11 +29,6 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Material.009
     second: {fileID: 2100000, guid: 2f2cde7d5e2ba874faefb7da43fc805f, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.010
-    second: {fileID: 2100000, guid: da5e9293a48bda744b5abf4ec4ae71c8, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

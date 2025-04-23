@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Level 1 material
-    second: {fileID: 2100000, guid: c25b2c4a14055d64ca9862fde565c46b, type: 2}
+      name: Grass mat
+    second: {fileID: 2100000, guid: bf86550555ddad14eb478a84fd215b3d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -37,8 +37,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: WallMat.001
-    second: {fileID: 2100000, guid: 13bbb63e9a3497749979cc616993afc3, type: 2}
+      name: WallMat
+    second: {fileID: 2100000, guid: 8dbcf94524835e947b36d82942124ea0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
