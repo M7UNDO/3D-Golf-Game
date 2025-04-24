@@ -53,6 +53,9 @@ public class PullAndRelease : MonoBehaviour
     public float mediumPowerShot = 1.2f;
     public float highPowerShot = 2f;
     public TextMeshProUGUI powerLevel;
+    public AudioSource pullSfx;
+    public AudioSource releaseSfx;
+    //public ParticleEffectScript particleEffectScript;
 
     private PlayerControls playerInput;
     private System.Action<InputAction.CallbackContext> powerCallback;
@@ -63,6 +66,8 @@ public class PullAndRelease : MonoBehaviour
     {
         rb = ball.transform.GetChild(0).GetComponent<Rigidbody>();
         lineRenderer = ball.transform.GetChild(0).GetComponent<LineRenderer>();
+        //particleEffectScript.particles = ball.transform.GetChild(0).GetChild(2).GetComponent<ParticleSystem>();
+        
         shotPower = mediumPowerShot;
 
         if(isLevel1 == false)
@@ -99,7 +104,7 @@ public class PullAndRelease : MonoBehaviour
         }
         else
         {
-             rb.drag = 0;
+             rb.drag = 0.5f;
         }
 
         if(isLevel1 == true || isLevel2 == true)
@@ -181,9 +186,14 @@ public class PullAndRelease : MonoBehaviour
     {
         
        transform.position = rb.position;
-        
+        if (Input.GetMouseButtonDown(0))
+        {
+            pullSfx.Play();
+        }
+
         if (Input.GetMouseButton(0))
         {
+            
             
             xRotation += Input.GetAxis("Mouse X") *  xSensitivity;
             yRotation += Input.GetAxis("Mouse Y") * ySensitivity;
@@ -242,6 +252,7 @@ public class PullAndRelease : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             
+            releaseSfx.Play();
             movementDirection = transform.forward;
             if (isGrounded)
             {   

@@ -15,6 +15,8 @@ public class EndGame : MonoBehaviour
     public float endScore;
     public int [] coinsEarned;
     public int [] shotsTaken;
+    public ParticleSystem particles;
+    public AudioSource levelWonSfx;
 
     public void EndScore()
     {
@@ -44,25 +46,34 @@ public class EndGame : MonoBehaviour
     {
         if (coli.gameObject.CompareTag("Player"))
         {
-            Time.timeScale = 0f;
+            particles.Play();
+            StartCoroutine(EndGame());
+            
+        }
+
+        
+
+        //int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        //int currentLevelIndex = currentSceneIndex - 1; // Level 1 = index 0
+
+        //FindObjectOfType<LoadLevel>().CompleteLevel(currentLevelIndex);
+
+        //Save coins + unlocked progress
+        Save.instance.SaveData();
+
+        IEnumerator EndGame()
+        {
+            yield return new WaitForSeconds(3f);
+            levelWonSfx.Play();
             EndPanel.SetActive(true);
             
             foreach (GameObject hud in hudElements)
             {
-               hud.SetActive(false);
+                hud.SetActive(false);
             }
-            
+            Time.timeScale = 0f;
+            EndScore();
         }
-
-        EndScore();
-
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        int currentLevelIndex = currentSceneIndex - 1; // Level 1 = index 0
-
-        FindObjectOfType<LoadLevel>().CompleteLevel(currentLevelIndex);
-
-        //Save coins + unlocked progress
-        Save.instance.SaveData();
 
     }
 }
