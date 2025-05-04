@@ -14,4 +14,12 @@ public class RestartLevel : MonoBehaviour
         }
     }
 
+    public void OnCollisionEnter(Collision coli)
+    {
+        if (coli.gameObject.CompareTag("Player"))
+        {
+            SceneManager.LoadScene(levelIndex);
+        }
+    }
+
 }

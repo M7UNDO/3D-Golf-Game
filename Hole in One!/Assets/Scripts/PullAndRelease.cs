@@ -13,6 +13,7 @@ public class PullAndRelease : MonoBehaviour
 {
     public bool isLevel1 = false;
     public bool isLevel2 = false;
+    public bool isLevel3 = false;
     public LevelUI levelUI;
     public Color ObjectivePassedColour;
     [Header("Player")]
@@ -29,6 +30,7 @@ public class PullAndRelease : MonoBehaviour
     private Rigidbody rb;
     public float playerHeight;
     public LayerMask layer;
+    public LayerMask layer2;
     public float Drag;
     private float xRotation = 0f;
     private float yRotation = 0f;
@@ -76,11 +78,6 @@ public class PullAndRelease : MonoBehaviour
             powerLevel.text = "Medium Power Shot";
         }
 
-        if (isLevel2 == true)
-        {
-            StartCoroutine(BallDrag());
-        }
-
 
 
     }
@@ -98,14 +95,31 @@ public class PullAndRelease : MonoBehaviour
         }
         
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, layer);// Shoot a raycast onto the ground to determain what the drag//Potential to use this for different kinds of ground types
-        if (isGrounded)
+
+        if(isLevel3 == true)
         {
-             rb.drag = Drag;
+            if (isGrounded)
+            {
+                rb.drag = Drag;
+            }
+            else
+            {
+                rb.drag = 0.3f;
+            }
         }
         else
         {
-             rb.drag = 0.5f;
+            if (isGrounded)
+            {
+                rb.drag = Drag;
+            }
+            else
+            {
+                rb.drag = 0.5f;
+            }
+
         }
+        
 
         if(isLevel1 == true || isLevel2 == true)
         {
@@ -299,14 +313,6 @@ public class PullAndRelease : MonoBehaviour
             levelUI.UIElements[1].SetActive(false);
 
         }
-
-    }
-
-    IEnumerator BallDrag()
-    {
-        Drag = 10f;
-        yield return new WaitForSeconds(0.1f);
-        Drag = 2f;
 
     }
 }
