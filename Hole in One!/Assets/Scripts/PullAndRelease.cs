@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -57,6 +58,8 @@ public class PullAndRelease : MonoBehaviour
     public TextMeshProUGUI powerLevel;
     public AudioSource pullSfx;
     public AudioSource releaseSfx;
+    public Slider powerSlider;
+private bool isCyclingPower = false;
     //public ParticleEffectScript particleEffectScript;
 
     private PlayerControls playerInput;
@@ -69,10 +72,14 @@ public class PullAndRelease : MonoBehaviour
         rb = ball.transform.GetChild(0).GetComponent<Rigidbody>();
         lineRenderer = ball.transform.GetChild(0).GetComponent<LineRenderer>();
         //particleEffectScript.particles = ball.transform.GetChild(0).GetChild(2).GetComponent<ParticleSystem>();
-        
-        shotPower = mediumPowerShot;
 
-        if(isLevel1 == false)
+        //shotPower = mediumPowerShot;
+        powerSlider.minValue = lowPowerShot;
+        powerSlider.maxValue = highPowerShot;
+        powerSlider.value = mediumPowerShot;
+        powerSlider.onValueChanged.AddListener(UpdatePowerFromSlider);
+
+        if (isLevel1 == false)
         {
             powerLevel.color = Color.green;
             powerLevel.text = "Medium Power Shot";
@@ -136,6 +143,32 @@ public class PullAndRelease : MonoBehaviour
         playerInput.Player.SetPower.performed -= powerCallback;
         playerInput.Player.Disable();
     }
+
+    private void UpdatePowerFromSlider(float value)
+    {
+        if (isCyclingPower) return; // prevent feedback loop
+        shotPower = value;
+
+        if (Mathf.Approximately(value, lowPowerShot))
+        {
+            powerLevel.color = Color.yellow;
+            powerLevel.text = "Low Power Shot";
+            airMultiplyer = LowMediumAirMultiplyer;
+        }
+        else if (Mathf.Approximately(value, mediumPowerShot))
+        {
+            powerLevel.color = Color.green;
+            powerLevel.text = "Medium Power Shot";
+            airMultiplyer = LowMediumAirMultiplyer;
+        }
+        else if (Mathf.Approximately(value, highPowerShot))
+        {
+            powerLevel.color = Color.red;
+            powerLevel.text = "High Power Shot";
+            airMultiplyer = HighShotAirMultiplyer;
+        }
+    }
+
     private void TrackShots()
     {
         NumberOfShots++;
@@ -143,43 +176,43 @@ public class PullAndRelease : MonoBehaviour
 
     private void SetPower()
     {
-        if (isLevel1 == true)
+        if (isLevel1) return;
+
+        if (isLevel2)
         {
-            return;
-
-        }
-
-        if (isLevel2 == true)
-        {
-
             levelUI.tutorialUI[2].color = ObjectivePassedColour;
             levelUI.tutorialarrow[1].color = ObjectivePassedColour;
         }
-        if (shotPower == mediumPowerShot)
+
+        isCyclingPower = true;
+
+        if (Mathf.Approximately(shotPower, mediumPowerShot))
         {
-            airMultiplyer = LowMediumAirMultiplyer;
             shotPower = highPowerShot;
+            airMultiplyer = HighShotAirMultiplyer;
             powerLevel.color = Color.red;
             powerLevel.text = "High Power Shot";
-            print(shotPower);
         }
-        else if (shotPower == highPowerShot)
+        else if (Mathf.Approximately(shotPower, highPowerShot))
         {
-            airMultiplyer = HighShotAirMultiplyer;
             shotPower = lowPowerShot;
+            airMultiplyer = LowMediumAirMultiplyer;
             powerLevel.color = Color.yellow;
             powerLevel.text = "Low Power Shot";
-            print(shotPower);
         }
-        else if(shotPower == lowPowerShot)
+        else
         {
-            airMultiplyer = LowMediumAirMultiplyer;
             shotPower = mediumPowerShot;
+            airMultiplyer = LowMediumAirMultiplyer;
             powerLevel.color = Color.green;
             powerLevel.text = "Medium Power Shot";
-            print(shotPower);
         }
+
+        powerSlider.value = shotPower;
+
+        isCyclingPower = false;
     }
+
 
     private void ShootBall()
     {

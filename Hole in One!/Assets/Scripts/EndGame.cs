@@ -49,16 +49,17 @@ public class EndGame : MonoBehaviour
         {
             particles.Play();
             StartCoroutine(EndGame());
-            
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            int currentLevelIndex = currentSceneIndex - 1; // Level 1 = index 0
+
+            FindObjectOfType<LoadLevel>().CompleteLevel(currentLevelIndex);
+
+            //Save coins + unlocked progress
+            Save.instance.SaveData();
+
         }
 
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        int currentLevelIndex = currentSceneIndex - 1; // Level 1 = index 0
-
-        FindObjectOfType<LoadLevel>().CompleteLevel(currentLevelIndex);
-
-        //Save coins + unlocked progress
-        Save.instance.SaveData();
+        
 
         IEnumerator EndGame()
         {
