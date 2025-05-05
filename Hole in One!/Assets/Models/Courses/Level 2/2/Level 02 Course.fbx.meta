@@ -32,6 +32,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Sand
+    second: {fileID: 2100000, guid: 466a5f4f08bb97c449e47438ab9c8010, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: WallMat
     second: {fileID: 2100000, guid: 2d7858b7e7d3df74bb214b228f448e37, type: 2}
   materials:

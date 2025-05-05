@@ -5,8 +5,6 @@ using UnityEngine;
 public class CollisionScript : MonoBehaviour
 {
     public ParticleSystem particles;
-    public AudioSource wallHitSfx;
-    public AudioSource landSfx;
 
 
     public void OnCollisionEnter(Collision coli)
@@ -18,11 +16,5 @@ public class CollisionScript : MonoBehaviour
             print("wall hit");
         }
 
-        /*if (coli.gameObject.CompareTag("Ground"))
-        {
-            landSfx.Play();
-            print("landed");
-        }
-        */
     }
 }

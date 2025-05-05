@@ -96,30 +96,15 @@ public class PullAndRelease : MonoBehaviour
         
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, layer);// Shoot a raycast onto the ground to determain what the drag//Potential to use this for different kinds of ground types
 
-        if(isLevel3 == true)
+
+        if (isGrounded)
         {
-            if (isGrounded)
-            {
-                rb.drag = Drag;
-            }
-            else
-            {
-                rb.drag = 0.3f;
-            }
+             rb.drag = Drag;
         }
         else
         {
-            if (isGrounded)
-            {
-                rb.drag = Drag;
-            }
-            else
-            {
-                rb.drag = 0.5f;
-            }
-
+             rb.drag = 0.5f;
         }
-        
 
         if(isLevel1 == true || isLevel2 == true)
         {

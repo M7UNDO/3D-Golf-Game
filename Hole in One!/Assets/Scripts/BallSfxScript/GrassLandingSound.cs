@@ -8,15 +8,26 @@ public class GrassLandingSound : MonoBehaviour
     private bool wasGrounded = false;
     public AudioSource landSfx;
     private float lastPlayTime = -1f;
+    private Vector3 lastVelocity;
+    public float landingVelocityThreshold = 2f;
 
-    private void Start()
+
+    void FixedUpdate()
     {
-        rb = GetComponent<Rigidbody>();
+        lastVelocity = GetComponent<Rigidbody>().velocity;
     }
+
 
     private void OnCollisionEnter(Collision coli)
     {
-        if (coli.gameObject.CompareTag("Ground"))
+       /* if (coli.gameObject.CompareTag("Ground"))
+        {
+            landSfx.Play();
+            
+        }
+        */
+        if (coli.relativeVelocity.magnitude > landingVelocityThreshold &&
+            coli.gameObject.CompareTag("Ground"))
         {
             landSfx.Play();
             lastPlayTime = Time.time;

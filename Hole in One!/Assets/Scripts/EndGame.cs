@@ -17,6 +17,7 @@ public class EndGame : MonoBehaviour
     public int [] shotsTaken;
     public ParticleSystem particles;
     public AudioSource levelWonSfx;
+    public AudioSource popUPSfx;
 
     public void EndScore()
     {
@@ -51,22 +52,22 @@ public class EndGame : MonoBehaviour
             
         }
 
-        
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int currentLevelIndex = currentSceneIndex - 1; // Level 1 = index 0
 
-        //int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        //int currentLevelIndex = currentSceneIndex - 1; // Level 1 = index 0
-
-        //FindObjectOfType<LoadLevel>().CompleteLevel(currentLevelIndex);
+        FindObjectOfType<LoadLevel>().CompleteLevel(currentLevelIndex);
 
         //Save coins + unlocked progress
         Save.instance.SaveData();
 
         IEnumerator EndGame()
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(2f);
             levelWonSfx.Play();
             EndPanel.SetActive(true);
-            
+            popUPSfx.Play();
+
+
             foreach (GameObject hud in hudElements)
             {
                 hud.SetActive(false);

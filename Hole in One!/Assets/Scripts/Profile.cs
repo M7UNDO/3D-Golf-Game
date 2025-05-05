@@ -81,7 +81,7 @@ public class Profile : MonoBehaviour
                 AvatarsList.Add(av);
 
                 g = Instantiate(AvatarUITemplate, AvatarsScrollView);
-                g.transform.GetChild(0).GetComponent<Image>().sprite = av.Image;
+                g.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = av.Image;
                 g.GetComponent<Button>().AddEventListener(AvatarsList.Count - 1, OnAvatarClick);
             }
         }
@@ -107,7 +107,7 @@ public class Profile : MonoBehaviour
 
         //add avatar in the UI scroll view
         g = Instantiate(AvatarUITemplate, AvatarsScrollView);
-        g.transform.GetChild(0).GetComponent<Image>().sprite = av.Image;
+        g.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = av.Image;
 
         //add click event
         g.transform.GetComponent<Button>().AddEventListener(AvatarsList.Count - 1, OnAvatarClick);
