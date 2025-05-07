@@ -17,6 +17,12 @@ public class PullAndRelease : MonoBehaviour
     public bool isLevel3 = false;
     public LevelUI levelUI;
     public Color ObjectivePassedColour;
+
+    private bool gameStarted = false;
+
+    [Header("Intro Transition")]
+    public float introDelay = 2.5f; // match your Cinemachine blend
+    public CanvasGroup fadeCanvas;
     [Header("Player")]
 
     public GameObject ball;
@@ -25,6 +31,7 @@ public class PullAndRelease : MonoBehaviour
     public float NumberOfShots;
     public TextMeshProUGUI shotsTxt;
     private Transform lastPos;
+    public GameObject[] startUI;
 
     [Header("Pull And Release Mechanic")]
     [Space(5)]
@@ -41,6 +48,8 @@ public class PullAndRelease : MonoBehaviour
     public float airMultiplyer;
     private Vector3 movementDirection;
     private bool isGrounded;
+    private bool canShoot = true;
+    public float shootCooldown = 1f;
 
     [Header("Rotation Sensitivity")]
     [Space(5)]
@@ -69,15 +78,27 @@ private bool isCyclingPower = false;
 
     public void Start()
     {
+        if(isLevel1 ==false)
+        {
+            StartCoroutine(DisplayUI());
+        }
+
+        StartCoroutine(DelayedStart());
+
         rb = ball.transform.GetChild(0).GetComponent<Rigidbody>();
+        rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
         lineRenderer = ball.transform.GetChild(0).GetComponent<LineRenderer>();
         //particleEffectScript.particles = ball.transform.GetChild(0).GetChild(2).GetComponent<ParticleSystem>();
 
         //shotPower = mediumPowerShot;
-        powerSlider.minValue = lowPowerShot;
-        powerSlider.maxValue = highPowerShot;
-        powerSlider.value = mediumPowerShot;
-        powerSlider.onValueChanged.AddListener(UpdatePowerFromSlider);
+        if(isLevel1 == false)
+        {
+            powerSlider.minValue = lowPowerShot;
+            powerSlider.maxValue = highPowerShot;
+            powerSlider.value = mediumPowerShot;
+            powerSlider.onValueChanged.AddListener(UpdatePowerFromSlider);
+        }
+        
 
         if (isLevel1 == false)
         {
@@ -90,6 +111,8 @@ private bool isCyclingPower = false;
     }
     void Update()
     {
+        if (!gameStarted || Time.timeScale == 0f) return;
+
         if (Input.GetKeyDown(KeyCode.R))
         {
             Save.instance.ResetSave();
@@ -125,6 +148,7 @@ private bool isCyclingPower = false;
 
 
         ShootBall();
+     
       
     }
 
@@ -220,13 +244,14 @@ private bool isCyclingPower = false;
        transform.position = rb.position;
         if (Input.GetMouseButtonDown(0))
         {
+            if (!isGrounded) return;
             pullSfx.Play();
         }
 
         if (Input.GetMouseButton(0))
         {
-            
-            
+
+            if (!isGrounded) return;
             xRotation += Input.GetAxis("Mouse X") *  xSensitivity;
             yRotation += Input.GetAxis("Mouse Y") * ySensitivity;
             transform.rotation = Quaternion.Euler(yRotation, xRotation, 0f); // transform the rotation of the golf ball
@@ -279,42 +304,34 @@ private bool isCyclingPower = false;
 
 
         }
-        
+
 
         if (Input.GetMouseButtonUp(0))
         {
-            
+            if (!isGrounded || !canShoot)
+            {
+                lineRenderer.enabled = false;
+                return;
+            }
+
             releaseSfx.Play();
             movementDirection = transform.forward;
-            if (isGrounded)
-            {   
-                rb.AddForce(movementDirection.normalized * shotPower * 10f, ForceMode.Impulse);
-                lineRenderer.enabled = false;
-            }
-            else if(!isGrounded)
-            {
-                rb.AddForce(movementDirection.normalized * shotPower * 10f * airMultiplyer, ForceMode.Impulse);
-            }
+            rb.AddForce(movementDirection.normalized * shotPower * 10f, ForceMode.Impulse);
+            lineRenderer.enabled = false;
 
             TrackShots();
             print(NumberOfShots);
 
-            if(isLevel1 == true)
+            if (isLevel1 || isLevel2)
             {
                 levelUI.tutorialUI[2].color = ObjectivePassedColour;
                 levelUI.tutorialarrow[1].color = ObjectivePassedColour;
             }
 
-            if (isLevel2 == true)
-            {
-                levelUI.tutorialUI[2].color = ObjectivePassedColour;
-                levelUI.tutorialarrow[1].color = ObjectivePassedColour;
-            }
-
-
+            StartCoroutine(ShootCooldown());
         }
-        
-        
+
+
     }
 
     IEnumerator DisplayUIOff()
@@ -333,4 +350,47 @@ private bool isCyclingPower = false;
         }
 
     }
+
+    IEnumerator ShootCooldown()
+    {
+        canShoot = false;
+        yield return new WaitForSeconds(shootCooldown);
+        canShoot = true;
+    }
+
+    IEnumerator DisplayUI()
+    {
+        yield return new WaitForSeconds(1.5f);
+        startUI[0].SetActive(true);
+        startUI[1].SetActive(true);
+    }
+
+    IEnumerator DelayedStart()
+    {
+        gameStarted = false;
+
+        if (fadeCanvas != null)
+        {
+            fadeCanvas.alpha = 1f;
+            fadeCanvas.blocksRaycasts = true;
+
+            float fadeTime = introDelay;
+            while (fadeCanvas.alpha > 0)
+            {
+                fadeCanvas.alpha -= Time.deltaTime / fadeTime;
+                yield return null;
+            }
+
+            fadeCanvas.blocksRaycasts = false;
+            fadeCanvas.alpha = 0f;
+        }
+        else
+        {
+            yield return new WaitForSeconds(introDelay);
+        }
+
+        gameStarted = true;
+    }
+
+
 }
