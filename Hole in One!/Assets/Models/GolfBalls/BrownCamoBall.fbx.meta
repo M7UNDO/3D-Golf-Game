@@ -3,7 +3,12 @@ guid: e13cdb31681ce674a9afa7cd6fa6db91
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Brown Camo1
+    second: {fileID: 2100000, guid: 7ed87cb0e785e6d47862103c954d384e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -16,8 +21,6 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 

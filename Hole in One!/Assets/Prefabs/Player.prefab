@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 4846009859662485106}
   - component: {fileID: 8626839432184823273}
   m_Layer: 0
-  m_Name: StandardBall
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,10 +68,13 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 660ebf04b733d2e4996ecc98aa552399, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -159,6 +162,9 @@ TrailRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -272,6 +278,9 @@ LineRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -392,6 +401,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 2574956752430303714, guid: 2241534681a8e8b419f5c8f09210de78,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 1c6d896f363daed4dbfbb8790c0818ae, type: 3}
+  m_Resource: {fileID: 8300000, guid: 1c6d896f363daed4dbfbb8790c0818ae, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.381
   m_Pitch: 1
@@ -554,6 +564,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 2574956752430303714, guid: 2241534681a8e8b419f5c8f09210de78,
     type: 2}
   m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

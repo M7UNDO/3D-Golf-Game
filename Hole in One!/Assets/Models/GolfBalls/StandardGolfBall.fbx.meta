@@ -3,7 +3,12 @@ guid: c436887bdb5239643bc0fbf7c2bab75f
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Golf white
+    second: {fileID: 2100000, guid: 6b1219785a1a7f045b74c71e1c7953d1, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -16,8 +21,6 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 

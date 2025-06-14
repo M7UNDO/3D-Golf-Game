@@ -14,7 +14,7 @@ public class GrassLandingSound : MonoBehaviour
 
     void FixedUpdate()
     {
-        lastVelocity = GetComponent<Rigidbody>().velocity;
+        lastVelocity = GetComponent<Rigidbody>().linearVelocity;
     }
 
 

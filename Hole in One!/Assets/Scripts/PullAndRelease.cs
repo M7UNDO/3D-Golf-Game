@@ -106,11 +106,11 @@ private bool isCyclingPower = false;
 
         if (isGrounded)
         {
-             rb.drag = Drag;
+             rb.linearDamping = Drag;
         }
         else
         {
-             rb.drag = 0.5f;
+             rb.linearDamping = 0.5f;
         }
 
         if(isLevel1 == true || isLevel2 == true)
