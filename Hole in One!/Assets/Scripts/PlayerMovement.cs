@@ -65,11 +65,11 @@ public class PlayerMovement : MonoBehaviour
         //print(healthBar.fillAmount);  
         if(isGrounded)
         {
-            rb.drag = ballDrag;
+            rb.linearDamping = ballDrag;
         }
         else
         {
-            rb.drag = 0;
+            rb.linearDamping = 0;
         }
         //print(canJump);
         //JumpCheck();
@@ -78,11 +78,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void LimitSpeed()
     {
-        Vector3 flatVelocity = new Vector3 (rb.velocity.x,0f, rb.velocity.z);
+        Vector3 flatVelocity = new Vector3 (rb.linearVelocity.x,0f, rb.linearVelocity.z);
         if(flatVelocity.magnitude > moveSpeed)
         {
             Vector3 limtedVelocity = flatVelocity.normalized * moveSpeed;
-            rb.velocity = new Vector3(limtedVelocity.x, rb.velocity.y, limtedVelocity.z);
+            rb.linearVelocity = new Vector3(limtedVelocity.x, rb.linearVelocity.y, limtedVelocity.z);
         }
     }
 
@@ -132,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public void Jump()
     {
-        rb.velocity = new Vector3(rb.velocity.x, 0.5f, rb.velocity.z);
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0.5f, rb.linearVelocity.z);
         if (isGrounded == true)
         {
             //jumpDirection = new Vector3(0f, 0.5f, 0f);

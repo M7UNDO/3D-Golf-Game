@@ -20,7 +20,7 @@ public class BallRollingSound : MonoBehaviour
     private void Update()
     {
         bool isGrounded = Physics.Raycast(transform.position, Vector3.down, checkDistance, groundLayer);
-        float speed = rb.velocity.magnitude;
+        float speed = rb.linearVelocity.magnitude;
 
         if (isGrounded && speed > minSpeedToPlay)
         {
