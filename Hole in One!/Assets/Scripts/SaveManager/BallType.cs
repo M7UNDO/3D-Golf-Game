@@ -20,7 +20,7 @@ public class BallType : MonoBehaviour
         if (_index >= 0 && _index < AllBallPrefabs.Count && Save.instance.ballsUnlocked[_index])
         {
             ballRender.material = AllBallPrefabs[_index];
-            Instantiate(playerBall, transform.position, Quaternion.identity, transform);
+            //Instantiate(playerBall, transform.position, Quaternion.identity, transform);
         }
         else
         {
