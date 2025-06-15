@@ -12,32 +12,30 @@ public class PlayerMovement : MonoBehaviour
     private float movementX;
     private float movementY;
     public float speed = 0;
-    public TextMeshProUGUI countText;
-    public GameObject winTextObject;
+    private ScoreHandler scoreHandler;
+    private MenuController menuController;
+    private TextMeshProUGUI countText;
     public Transform respawnPoint;
+    public int playerIndex;
     void Start()
     {
         // Get and store the Rigidbody component attached to the player.
         rb = GetComponent<Rigidbody>();
-        winTextObject = GameObject.Find("GameOver Panel");
+        menuController = GameObject.Find("Canvas").GetComponent<MenuController>();
+        scoreHandler = GameObject.Find("Canvas/CountPanel").GetComponent<ScoreHandler>();
         GameObject shotcount = GameObject.Find("CountText");
-        GameObject respawn = GameObject.Find("RespawnPoint");
-        respawnPoint = respawn.transform;
+        respawnPoint = GameObject.Find("RespawnPoint").GetComponent<Transform>();
         countText = shotcount.GetComponent<TextMeshProUGUI>();
 
-        // Initialize count to zero.
         count = 0;
 
         // Update the count display.
         SetCountText();
-
-        // Initially set the win text to be inactive.
-        winTextObject.SetActive(false);
     }
 
     private void Update()
     {
-        if(transform.position.y < -10)
+        if (transform.position.y < -10)
         {
             Respawn();
         }
@@ -74,7 +72,8 @@ public class PlayerMovement : MonoBehaviour
             other.gameObject.SetActive(false);
 
             // Increment the count of "PickUp" objects collected.
-            count = count +1;
+            count = count + 1;
+            scoreHandler.score++;
             Debug.Log(count);
 
             // Update the count display.
@@ -84,8 +83,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision coli)
     {
-        if (coli.gameObject.CompareTag("Enemy")){
-            Respawn();
+        if (coli.gameObject.CompareTag("Enemy"))
+        {
+            //Respawn();
+            EndGame();
         }
     }
 
@@ -93,21 +94,28 @@ public class PlayerMovement : MonoBehaviour
     void SetCountText()
     {
         // Update the count text with the current count.
-        countText.text = "Count: " + count.ToString();
-
+        //countText.text = "Count: " + count.ToString();
+        menuController.AddCountText(playerIndex, count);
         // Check if the count has reached or exceeded the win condition.
-        if (count >= 12)
+        if (scoreHandler.score >= 12)
         {
             // Display the win text.
-            winTextObject.SetActive(true);
+            //winTextObject.SetActive(true);
+            menuController.WinGame();
         }
     }
 
-    void Respawn()
+    public void Respawn()
     {
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         rb.Sleep();
         transform.position = respawnPoint.position;
+    }
+
+    public void EndGame()
+    {
+        menuController.LoseGame();
+        gameObject.SetActive(false);
     }
 }
