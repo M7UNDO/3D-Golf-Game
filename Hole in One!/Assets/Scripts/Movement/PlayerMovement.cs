@@ -19,14 +19,14 @@ public class PlayerMovement : MonoBehaviour
     public int playerIndex;
     void Start()
     {
-        // Get and store the Rigidbody component attached to the player.
+        // Get and store the Rigidbody component attached to the player
+   
         rb = GetComponent<Rigidbody>();
         menuController = GameObject.Find("Canvas").GetComponent<MenuController>();
         scoreHandler = GameObject.Find("Canvas/CountPanel").GetComponent<ScoreHandler>();
         GameObject shotcount = GameObject.Find("CountText");
         respawnPoint = GameObject.Find("RespawnPoint").GetComponent<Transform>();
         countText = shotcount.GetComponent<TextMeshProUGUI>();
-
         count = 0;
 
         // Update the count display.
@@ -85,7 +85,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (coli.gameObject.CompareTag("Enemy"))
         {
-            //Respawn();
             EndGame();
         }
     }
@@ -93,14 +92,10 @@ public class PlayerMovement : MonoBehaviour
     // Function to update the displayed count of "PickUp" objects collected.
     void SetCountText()
     {
-        // Update the count text with the current count.
-        //countText.text = "Count: " + count.ToString();
         menuController.AddCountText(playerIndex, count);
         // Check if the count has reached or exceeded the win condition.
         if (scoreHandler.score >= 12)
         {
-            // Display the win text.
-            //winTextObject.SetActive(true);
             menuController.WinGame();
         }
     }
