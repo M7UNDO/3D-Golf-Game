@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class RestartLevel : MonoBehaviour
 {
     public int levelIndex;
+    public PlayerMovement playerMovement;
 
     public void OnTriggerExit(Collider coli)
     {
@@ -18,7 +19,9 @@ public class RestartLevel : MonoBehaviour
     {
         if (coli.gameObject.CompareTag("Player"))
         {
-            SceneManager.LoadScene(levelIndex);
+            playerMovement = coli.gameObject.GetComponent<PlayerMovement>();
+            //SceneManager.LoadScene(levelIndex);
+            playerMovement.Respawn();
         }
     }
 
