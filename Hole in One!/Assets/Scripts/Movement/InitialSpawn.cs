@@ -10,6 +10,7 @@ public class InitialSpawn : MonoBehaviour
     public Vector3 player2Start;
     public Transform p1Pos;
     public Transform p2Pos;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,8 +19,8 @@ public class InitialSpawn : MonoBehaviour
             var player1 = PlayerInput.Instantiate(prefab, 0, "WASD", 0, Keyboard.current);
             var player2 = PlayerInput.Instantiate(prefab, 1, "Arrows", 1, Keyboard.current);
 
-            player1.transform.position = p1Pos.position;
-            player2.transform.position = p2Pos.position;
+            player1.transform.parent.position = p1Pos.transform.position;
+            player2.transform.parent.position = p2Pos.transform.position;
 
             player1.transform.parent.GetChild(1).GetComponent<Camera>().rect = new Rect(0, 0, .5f, 1);
             player2.transform.parent.GetChild(1).GetComponent<Camera>().rect = new Rect(.5f, 0, .5f, 1);
@@ -32,7 +33,8 @@ public class InitialSpawn : MonoBehaviour
         else if (isSinglePlayer)
         {
             var player1 = PlayerInput.Instantiate(prefab, 0, "WASD", 0, Keyboard.current);
-            player1.transform.position = p1Pos.position;
+            player1.transform.parent.transform.position = p1Pos.position;
+            player1.transform.parent.GetChild(0).transform.position = player1.transform.parent.position;
 
             player1.transform.parent.GetChild(1).GetComponent<Camera>().rect = new Rect(0, 0, 1, 1);
 

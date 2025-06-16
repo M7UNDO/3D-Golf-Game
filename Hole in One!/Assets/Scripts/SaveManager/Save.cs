@@ -13,7 +13,8 @@ public class Save: MonoBehaviour
     public int currentBall;
     public int Coins;
     public bool[] ballsUnlocked = new bool[10] { true, false, false, false, false, false, false, false, false, false };
-    public bool[] LevelsUnlocked = new bool[4] { true, false, false, false };
+    public bool[] SinglePlayerLevelsUnlocked = new bool[4] { true, false, false, false };
+    public bool[] MultiplayerLevelsUnlocked = new bool[4] { true, false, false, false };
 
     private void Awake()
     {
@@ -34,7 +35,8 @@ public class Save: MonoBehaviour
         currentBall = 0;
         Coins = 0;
         ballsUnlocked = new bool[10] { true, false, false, false, false, false, false, false, false, false };
-        LevelsUnlocked = new bool[4] { true, false, false, false };
+        SinglePlayerLevelsUnlocked = new bool[4] { true, false, false, false };
+        MultiplayerLevelsUnlocked = new bool[4] { true, false, false, false };
 
         SaveData();
     }
@@ -50,7 +52,8 @@ public class Save: MonoBehaviour
             currentBall = data.currentBall;
             Coins = data.Coins;
             ballsUnlocked = data.ballsUnlocked;
-            LevelsUnlocked = data.LevelsUnlocked;
+            SinglePlayerLevelsUnlocked = data.SinglePlayerLevelsUnlocked;
+            MultiplayerLevelsUnlocked = data.MultiplayerLevelsUnlocked;
             file.Close();
             
             if(data.ballsUnlocked == null)
@@ -59,14 +62,20 @@ public class Save: MonoBehaviour
 
             }
 
-            if (data.LevelsUnlocked == null)
+            if (data.SinglePlayerLevelsUnlocked == null)
             {
-                LevelsUnlocked = new bool[4] { true, false, false, false };
+                SinglePlayerLevelsUnlocked = new bool[4] { true, false, false, false };
             }
-           
-            
+
+            if (data.SinglePlayerLevelsUnlocked == null)
+            {
+                MultiplayerLevelsUnlocked = new bool[4] { true, false, false, false };
+            }
+
+
+
         }
-        
+
     }
 
     public void SaveData()
@@ -78,7 +87,8 @@ public class Save: MonoBehaviour
         data.currentBall = currentBall;
         data.Coins  = Coins;
         data.ballsUnlocked = ballsUnlocked;
-        data.LevelsUnlocked = LevelsUnlocked;
+        data.SinglePlayerLevelsUnlocked = SinglePlayerLevelsUnlocked;
+        data.MultiplayerLevelsUnlocked = MultiplayerLevelsUnlocked;
         bf.Serialize(file, data);
         file.Close();
         //print("Save found" + currentBall);
@@ -92,7 +102,8 @@ public class Save: MonoBehaviour
         public int currentBall;
         public int Coins;
         public bool[] ballsUnlocked = new bool[10] { true, false, false, false, false, false, false, false, false, false };
-        public bool[] LevelsUnlocked = new bool[4] { true, false, false, false };
+        public bool[] SinglePlayerLevelsUnlocked = new bool[4] { true, false, false, false };
+        public bool[] MultiplayerLevelsUnlocked = new bool[4] { true, false, false, false };
 
 
     }

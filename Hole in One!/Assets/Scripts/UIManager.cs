@@ -106,13 +106,13 @@ public class UIManager : MonoBehaviour
         if (toggle == false)
         {
             levelPanel.SetActive(false);
-            shopButton.SetActive(true);
+       
         }
 
         if (toggle)
         {
             levelPanel.SetActive(true);
-            shopButton.SetActive(false);
+            
         }
     }
     public void ShopOpenClose()
