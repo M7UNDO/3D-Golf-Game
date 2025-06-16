@@ -82,10 +82,10 @@ public class LoadLevel : MonoBehaviour
         for (int i = unlocked.Length - 1; i >= 0; i--)
         {
             if (unlocked[i])
-                return 20 + i; // Assuming MP levels start at build index 20
+                return 6 + i; // Assuming MP levels start at build index 20
         }
 
-        return 20; // Fallback to first MP level
+        return 6; // Fallback to first MP level
     }
 
     void SetupMultiplayerLevelButtons()

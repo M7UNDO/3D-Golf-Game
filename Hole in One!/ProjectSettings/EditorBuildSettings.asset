@@ -8,23 +8,29 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: c1fe8e122ebb8e14ba01a1465fdcf132
-  - enabled: 0
-    path: Assets/Scenes/Tutorial.unity
-    guid: 40656955c18598a4d84b4124f1160cbb
-  - enabled: 0
-    path: Assets/Scenes/Tutorial 2.unity
-    guid: 01d3f1bc2695a0048b9e85782c38ce12
-  - enabled: 0
-    path: Assets/Scenes/Level 1.unity
-    guid: 7ab75a865e7c7d8469cd5805fea3186b
-  - enabled: 0
-    path: Assets/Scenes/Level 2.unity
-    guid: c598641e7481f874096a33ee1e12b6b5
-  - enabled: 0
-    path: Assets/Scenes/LevelIntro.unity
-    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/Level.unity
-    guid: 07b99844bdcaba94fb8608a336582bb9
+    path: Assets/Scenes/SinglePlayerScenes/Stage1.unity
+    guid: db62bf5df04f210498a8e6dcd3b66b69
+  - enabled: 1
+    path: Assets/Scenes/SinglePlayerScenes/Stage 2.unity
+    guid: f44be427cfe0ffa489b9005b844f1135
+  - enabled: 1
+    path: Assets/Scenes/SinglePlayerScenes/Stage3.unity
+    guid: d25627c2b489ae74d9715c6e91f021b9
+  - enabled: 1
+    path: Assets/Scenes/SinglePlayerScenes/Stage4.unity
+    guid: d0207c404b4ac9741ad9d0268e9960af
+  - enabled: 1
+    path: Assets/Scenes/MultiplayerScenes/Stage (01).unity
+    guid: 6b88b41ecb1342a4c8a3a18beeec7e6f
+  - enabled: 1
+    path: Assets/Scenes/MultiplayerScenes/Stage (02).unity
+    guid: bdbad4f47fe4ee24b82040f537181439
+  - enabled: 1
+    path: Assets/Scenes/MultiplayerScenes/Stage (03).unity
+    guid: a02753ba3e6757244890d16a8868a517
+  - enabled: 1
+    path: Assets/Scenes/MultiplayerScenes/Stage (04).unity
+    guid: 85cc50934f7e32a40b24f0523e1dc23f
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
