@@ -4,84 +4,122 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+
 public class LoadLevel : MonoBehaviour
 {
-    public Button[] levelButtons;
-    // Start is called before the first frame update
+    [Header("UI Buttons")]
+    public Button[] singlePlayerLevelButtons;
+    public Button[] multiplayerLevelButtons;
+
     private void Start()
     {
-        SetupLevelButtons();
-    }
-    public void LoadLevelNumber(int _index)
-    {
-        Time.timeScale = 1;
-       SceneManager.LoadScene(_index);
+        SetupSinglePlayerLevelButtons();
+        SetupMultiplayerLevelButtons();
     }
 
-   public void Play()
-   {
-        int levelToLoad = GetLastUnlockedLevel();
+    // ------------------- SINGLE PLAYER -------------------
+
+    public void PlaySinglePlayer()
+    {
+        int levelToLoad = GetLastUnlockedSinglePlayerLevel();
         Time.timeScale = 1;
         SceneManager.LoadScene(levelToLoad);
-   }
+    }
 
-   int GetLastUnlockedLevel()
-   {
-        bool[] unlocked = Save.instance.LevelsUnlocked;
+    int GetLastUnlockedSinglePlayerLevel()
+    {
+        bool[] unlocked = Save.instance.SinglePlayerLevelsUnlocked;
 
         for (int i = unlocked.Length - 1; i >= 0; i--)
         {
             if (unlocked[i])
-                return i + 1; // Offset to match Build Index
+                return i + 1; // Assuming SP levels start at build index 1
         }
 
-        return 1; // Fallback to Level 1 (scene index 1)
-   }
-
-
-    /*
-    public void LoadLevel(int levelIndex)
-    {
-        Time.timeScale = 1;
-        SceneManager.LoadScene(levelIndex);
+        return 1; // Fallback to Level 1
     }
-    */
-    // Sets up UI based on which levels are unlocked
 
-    public void CompleteLevel(int currentLevelIndex)
+    void SetupSinglePlayerLevelButtons()
+    {
+        for (int i = 0; i < Save.instance.SinglePlayerLevelsUnlocked.Length && i < singlePlayerLevelButtons.Length; i++)
+        {
+            int levelIndex = i;
+            bool isUnlocked = Save.instance.SinglePlayerLevelsUnlocked[levelIndex];
+            singlePlayerLevelButtons[i].interactable = isUnlocked;
+
+            if (isUnlocked)
+            {
+                int sceneBuildIndex = levelIndex + 1; // Adjust for SP build indices
+                singlePlayerLevelButtons[i].onClick.AddListener(() => LoadLevelByIndex(sceneBuildIndex));
+            }
+        }
+    }
+
+    public void CompleteSinglePlayerLevel(int currentLevelIndex)
     {
         int nextLevel = currentLevelIndex + 1;
 
-        if (nextLevel < Save.instance.LevelsUnlocked.Length)
+        if (nextLevel < Save.instance.SinglePlayerLevelsUnlocked.Length)
         {
-            Save.instance.LevelsUnlocked[nextLevel] = true;
+            Save.instance.SinglePlayerLevelsUnlocked[nextLevel] = true;
             Save.instance.SaveData();
         }
     }
 
-    // Loads a level scene by index
+    // ------------------- MULTIPLAYER -------------------
+
+    public void PlayMultiplayer()
+    {
+        int levelToLoad = GetLastUnlockedMultiplayerLevel();
+        Time.timeScale = 1;
+        SceneManager.LoadScene(levelToLoad);
+    }
+
+    int GetLastUnlockedMultiplayerLevel()
+    {
+        bool[] unlocked = Save.instance.MultiplayerLevelsUnlocked;
+
+        for (int i = unlocked.Length - 1; i >= 0; i--)
+        {
+            if (unlocked[i])
+                return 20 + i; // Assuming MP levels start at build index 20
+        }
+
+        return 20; // Fallback to first MP level
+    }
+
+    void SetupMultiplayerLevelButtons()
+    {
+        for (int i = 0; i < Save.instance.MultiplayerLevelsUnlocked.Length && i < multiplayerLevelButtons.Length; i++)
+        {
+            int levelIndex = i;
+            bool isUnlocked = Save.instance.MultiplayerLevelsUnlocked[levelIndex];
+            multiplayerLevelButtons[i].interactable = isUnlocked;
+
+            if (isUnlocked)
+            {
+                int sceneBuildIndex = 20 + levelIndex; // Adjust for MP build indices
+                multiplayerLevelButtons[i].onClick.AddListener(() => LoadLevelByIndex(sceneBuildIndex));
+            }
+        }
+    }
+
+    public void CompleteMultiplayerLevel(int currentLevelIndex)
+    {
+        int nextLevel = currentLevelIndex + 1;
+
+        if (nextLevel < Save.instance.MultiplayerLevelsUnlocked.Length)
+        {
+            Save.instance.MultiplayerLevelsUnlocked[nextLevel] = true;
+            Save.instance.SaveData();
+        }
+    }
+
+    // ------------------- COMMON -------------------
+
     public void LoadLevelByIndex(int levelIndex)
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(levelIndex);
     }
-    void SetupLevelButtons()
-    {
-        for (int i = 0; i < Save.instance.LevelsUnlocked.Length && i < levelButtons.Length; i++)
-        {
-            int levelIndex = i;
-
-            bool isUnlocked = Save.instance.LevelsUnlocked[levelIndex];
-
-            levelButtons[i].interactable = isUnlocked;
-
-            if (isUnlocked)
-            {
-                // Add 1 to match the Build Index (Main Menu is at index 0)
-                int sceneBuildIndex = levelIndex + 1;
-                levelButtons[i].onClick.AddListener(() => LoadLevelByIndex(sceneBuildIndex));
-            }
-        }
-    }
-
 }

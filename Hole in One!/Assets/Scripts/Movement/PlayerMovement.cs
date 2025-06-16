@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
-using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -18,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private TextMeshProUGUI countText;
     public Transform respawnPoint;
     public int playerIndex;
+    public AudioSource pickUpSfx;
     void Start()
     {
         // Get and store the Rigidbody component attached to the player
@@ -27,11 +30,13 @@ public class PlayerMovement : MonoBehaviour
         scoreHandler = GameObject.Find("Canvas/CountPanel").GetComponent<ScoreHandler>();
         GameObject shotcount = GameObject.Find("CountText");
         respawnPoint = GameObject.Find("RespawnPoint").GetComponent<Transform>();
+        pickUpSfx = transform.GetChild(0).GetComponent<AudioSource>();
         countText = shotcount.GetComponent<TextMeshProUGUI>();
         count = 0;
 
         // Update the count display.
         SetCountText();
+        Respawn();
     }
 
     private void Update()
@@ -40,6 +45,8 @@ public class PlayerMovement : MonoBehaviour
         {
             Respawn();
         }
+
+        
     }
 
     // This function is called when a move input is detected.
@@ -80,9 +87,13 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.CompareTag("PickUp"))
         {
             // Deactivate the collided object (making it disappear).
+            pickUpSfx.Play();
+            other.gameObject.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+            
             other.gameObject.SetActive(false);
-
+            
             // Increment the count of "PickUp" objects collected.
+            
             count = count + 1;
             scoreHandler.score++;
             Debug.Log(count);
@@ -105,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
     {
         menuController.AddCountText(playerIndex, count);
         // Check if the count has reached or exceeded the win condition.
-        if (scoreHandler.score >= 12)
+        if (scoreHandler.score >= menuController.winAmount)
         {
             menuController.WinGame();
         }
@@ -124,4 +135,6 @@ public class PlayerMovement : MonoBehaviour
         menuController.LoseGame();
         gameObject.SetActive(false);
     }
+
+    
 }

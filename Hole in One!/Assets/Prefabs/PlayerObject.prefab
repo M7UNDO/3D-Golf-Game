@@ -244,8 +244,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: f9a18d54ef3f4a64392352583d4f4460, type: 2}
   - {fileID: 2100000, guid: 8a3b3850407809d408772409d9a81692, type: 2}
   - {fileID: 2100000, guid: 7b610b295130c604d8d1ab7f07d833d7, type: 2}
-  playerBall: {fileID: 1907134456314190014, guid: dd3129460c76f464f8aba53288d1503c,
-    type: 3}
+  playerBall: {fileID: 4126746143481427526}
 --- !u!82 &7769313543862204998
 AudioSource:
   m_ObjectHideFlags: 0
@@ -878,10 +877,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5a95babbacc2594da8c08adc156d7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 8
   rotationSpeed: 0
   respawnPoint: {fileID: 0}
   playerIndex: 0
+  pickUpSfx: {fileID: 0}
+  mouseSensitivity: 3
 --- !u!114 &5704233212315576555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -956,8 +957,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 2574956752430303714, guid: 2241534681a8e8b419f5c8f09210de78,
     type: 2}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 3a85671dcbc5af14a9de55864929786e, type: 3}
+  m_Resource: {fileID: 8300000, guid: 3a85671dcbc5af14a9de55864929786e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
