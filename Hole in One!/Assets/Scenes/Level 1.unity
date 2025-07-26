@@ -5935,15 +5935,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -8612,18 +8614,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AllBallPrefabs:
-  - {fileID: 2100000, guid: 6b1219785a1a7f045b74c71e1c7953d1, type: 2}
-  - {fileID: 2100000, guid: 660ebf04b733d2e4996ecc98aa552399, type: 2}
-  - {fileID: 2100000, guid: 9625a7b3f29870a42a677ff8b92e7700, type: 2}
-  - {fileID: 2100000, guid: 8de26431b8fae5646b2708a7182ef1ab, type: 2}
-  - {fileID: 2100000, guid: 77d67930c21f98247bf2522e670c9915, type: 2}
-  - {fileID: 2100000, guid: 7ed87cb0e785e6d47862103c954d384e, type: 2}
-  - {fileID: 2100000, guid: 77d67930c21f98247bf2522e670c9915, type: 2}
-  - {fileID: 2100000, guid: f9a18d54ef3f4a64392352583d4f4460, type: 2}
-  - {fileID: 2100000, guid: 8a3b3850407809d408772409d9a81692, type: 2}
-  - {fileID: 2100000, guid: 7b610b295130c604d8d1ab7f07d833d7, type: 2}
-  playerBall: {fileID: 1907134456314190014, guid: dd3129460c76f464f8aba53288d1503c,
-    type: 3}
+  - {fileID: 1907134456314190014, guid: dd3129460c76f464f8aba53288d1503c, type: 3}
+  - {fileID: 2235831374600260619, guid: 98c06e71ee2b94940a2e20a49a806323, type: 3}
+  - {fileID: 3227700156405262872, guid: 3203983f878bee140b0f3f8927140bec, type: 3}
+  - {fileID: 869130204231735820, guid: 7246253fe470c6647a0b0d201d4d39c7, type: 3}
+  - {fileID: 3585005612065562722, guid: 4fda029370030364db48bc66beed55d4, type: 3}
+  - {fileID: 8975746606235770234, guid: 2bf19606ac689e0449c560474618c8e3, type: 3}
+  - {fileID: 76692080655285326, guid: 21fa224c370c46c4db2f97c9d208f628, type: 3}
+  - {fileID: 2950493591091006630, guid: 37fcd29b24f5bf04a8cc946a6a23567b, type: 3}
+  - {fileID: 1516815723042474782, guid: 9a79c7480bf0c75489e46464daa208ad, type: 3}
+  - {fileID: 7196341077123826298, guid: 5c4d437c235c1f34398efc79e05fdf7c, type: 3}
 --- !u!4 &4083501150373225720
 Transform:
   m_ObjectHideFlags: 0

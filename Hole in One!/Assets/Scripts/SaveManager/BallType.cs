@@ -1,30 +1,39 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
+
 
 public class BallType : MonoBehaviour
 {
-    public List<Material> AllBallPrefabs; // Matches order of Save.ballsUnlocked
-    public GameObject playerBall;
-    private Renderer ballRender;
+    public List<GameObject> AllBallPrefabs; // Matches the full ShopItemsList
+    List<GameObject> PurchasedBallTypes = new List<GameObject>();
 
     void Awake()
     {
-        
-        ballRender = playerBall.GetComponent<Renderer>();
+        BuildPurchasedList();
         ChooseBallType(Save.instance.currentBall);
+    }
 
+    void BuildPurchasedList()
+    {
+        PurchasedBallTypes.Clear();
+        for (int i = 0; i < Shop.Instance.ShopItemsList.Count; i++)
+        {
+            if (Shop.Instance.ShopItemsList[i].IsPurchased)
+            {
+                PurchasedBallTypes.Add(AllBallPrefabs[i]);
+            }
+        }
     }
 
     public void ChooseBallType(int _index)
     {
-        if (_index >= 0 && _index < AllBallPrefabs.Count && Save.instance.ballsUnlocked[_index])
+        if (_index >= 0 && _index < PurchasedBallTypes.Count)
         {
-            ballRender.material = AllBallPrefabs[_index];
-            Instantiate(playerBall, transform.position, Quaternion.identity, transform);
+            Instantiate(PurchasedBallTypes[_index], transform.position, Quaternion.identity, transform);
         }
         else
         {
-            Debug.LogWarning("Invalid or locked ball index: " + _index);
+            Debug.LogWarning("Invalid ball index: " + _index);
         }
     }
 }
