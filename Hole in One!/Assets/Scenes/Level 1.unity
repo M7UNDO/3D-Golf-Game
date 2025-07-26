@@ -3042,6 +3042,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1050286183}
   - component: {fileID: 1050286185}
+  - component: {fileID: 1050286186}
   m_Layer: 0
   m_Name: Level Manager
   m_TagString: Untagged
@@ -3077,6 +3078,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pausePanel: {fileID: 205866845}
+--- !u!114 &1050286186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1050286182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76fa959447e5bd24c8f8b5fba8d8e0e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelButtons: []
 --- !u!1 &1135970147
 GameObject:
   m_ObjectHideFlags: 0
@@ -6022,27 +6036,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2abe74470df15340b0d8f68df932149, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ball: {fileID: 7455902786592324081}
   isLevel1: 0
   isLevel2: 0
   isLevel3: 0
   levelUI: {fileID: 0}
   ObjectivePassedColour: {r: 0, g: 0, b: 0, a: 0}
-  ball: {fileID: 7455902786592324081}
+  introDelay: 2.5
+  fadeCanvas: {fileID: 0}
   NumberOfShots: 0
   shotsTxt: {fileID: 1881902536}
+  startUI: []
   playerHeight: 1
   layer:
     serializedVersion: 2
     m_Bits: 64
-  layer2:
-    serializedVersion: 2
-    m_Bits: 0
   Drag: 0.5
+  isAiming: 0
   lineRenderer: {fileID: 0}
   shotPower: 1.2
   airMultiplyer: 0.3
-  xSensitivity: 5
-  ySensitivity: 5
+  shootCooldown: 1
   HighShotAirMultiplyer: 0
   LowMediumAirMultiplyer: 0
   lowPowerShot: 0.5

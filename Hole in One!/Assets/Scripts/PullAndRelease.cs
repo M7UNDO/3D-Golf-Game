@@ -12,6 +12,16 @@ using System.Threading;
 
 public class PullAndRelease : MonoBehaviour
 {
+    [Header("Player")]
+    public GameObject ball;
+
+    [Header("Player Input")]
+    [Space(5)]
+    private PlayerControls playerInput;
+    private System.Action<InputAction.CallbackContext> powerCallback;
+
+    [Header ("Levels")]
+    [Space(5)]
     public bool isLevel1 = false;
     public bool isLevel2 = false;
     public bool isLevel3 = false;
@@ -21,11 +31,10 @@ public class PullAndRelease : MonoBehaviour
     private bool gameStarted = false;
 
     [Header("Intro Transition")]
+    [Space(5)]
     public float introDelay = 2.5f; // match your Cinemachine blend
     public CanvasGroup fadeCanvas;
-    [Header("Player")]
-
-    public GameObject ball;
+    
     [Header("Shot Count")]
     [Space(5)]
     public float NumberOfShots;
@@ -35,10 +44,11 @@ public class PullAndRelease : MonoBehaviour
 
     [Header("Pull And Release Mechanic")]
     [Space(5)]
+
     private Rigidbody rb;
     public float playerHeight;
     public LayerMask layer;
-    public LayerMask layer2;
+    //public LayerMask layer2;
     public float Drag;
     private float xRotation = 0f;
     private float yRotation = 0f;
@@ -55,10 +65,11 @@ public class PullAndRelease : MonoBehaviour
 
     [Header("Rotation Sensitivity")]
     [Space(5)]
-    public float xSensitivity;
-    public float ySensitivity;
 
-    [Header("Set Power")]
+    private float xSensitivity = 2f;
+    private float ySensitivity = 2f;
+
+    [Header("Power")]
     [Space(5)]
 
     public float HighShotAirMultiplyer;
@@ -71,28 +82,18 @@ public class PullAndRelease : MonoBehaviour
     public AudioSource releaseSfx;
     public Slider powerSlider;
     private bool isCyclingPower = false;
-    //public ParticleEffectScript particleEffectScript;
-
-    private PlayerControls playerInput;
-    private System.Action<InputAction.CallbackContext> powerCallback;
-
-
 
     public void Start()
     {
-        if (isLevel1 == false)
+        if (isLevel1 == false || isLevel2 == false)
         {
             StartCoroutine(DisplayUI());
         }
-
         StartCoroutine(DelayedStart());
-
         rb = ball.transform.GetChild(0).GetComponent<Rigidbody>();
         rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
         lineRenderer = ball.transform.GetChild(0).GetComponent<LineRenderer>();
-        //particleEffectScript.particles = ball.transform.GetChild(0).GetChild(2).GetComponent<ParticleSystem>();
 
-        //shotPower = mediumPowerShot;
         if (isLevel1 == false)
         {
             powerSlider.minValue = lowPowerShot;
@@ -157,7 +158,6 @@ public class PullAndRelease : MonoBehaviour
         {
             AimBall();
         }
-
         print(isGrounded);
     }
 
