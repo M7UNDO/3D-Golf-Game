@@ -27,12 +27,6 @@ public class LevelUI : MonoBehaviour
         StartCoroutine(DisplayUI());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnEnable()
     {
         playerInput = new PlayerControls();

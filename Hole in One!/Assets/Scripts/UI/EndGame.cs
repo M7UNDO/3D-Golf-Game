@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class EndGame : MonoBehaviour
 {
+    public LoadLevel loadLevel;
     public GameObject EndPanel;
     public GameObject[] hudElements;
     public PullAndRelease pullAndRelease;

@@ -1331,7 +1331,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 415066231353611751}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 415066231353611752}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
@@ -5327,10 +5327,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bef37d4a6a0e85d4cba57b5c6051dbeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadLevel: {fileID: 0}
   EndPanel: {fileID: 1369107737}
   hudElements:
   - {fileID: 1881902537}
   - {fileID: 171683250}
+  - {fileID: 415066231353611752}
   pullAndRelease: {fileID: 1744621367}
   scoreTxt: {fileID: 1725981340}
   coinsEarnedTxt: {fileID: 202371730}
@@ -7527,6 +7529,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acfc759b034c1eb45907064445f999e6, type: 3}
+--- !u!1 &415066231353611752 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7639051525001838544, guid: acfc759b034c1eb45907064445f999e6,
+    type: 3}
+  m_PrefabInstance: {fileID: 415066231353611751}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &543450652643171006
 Transform:
   m_ObjectHideFlags: 0

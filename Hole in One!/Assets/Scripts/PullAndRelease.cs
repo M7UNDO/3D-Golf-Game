@@ -48,7 +48,6 @@ public class PullAndRelease : MonoBehaviour
     private Rigidbody rb;
     public float playerHeight;
     public LayerMask layer;
-    //public LayerMask layer2;
     public float Drag;
     private float xRotation = 0f;
     private float yRotation = 0f;
@@ -85,10 +84,6 @@ public class PullAndRelease : MonoBehaviour
 
     public void Start()
     {
-        if (isLevel1 == false || isLevel2 == false)
-        {
-            StartCoroutine(DisplayUI());
-        }
         StartCoroutine(DelayedStart());
         rb = ball.transform.GetChild(0).GetComponent<Rigidbody>();
         rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
@@ -378,12 +373,7 @@ public class PullAndRelease : MonoBehaviour
         canShoot = true;
     }
 
-    IEnumerator DisplayUI()
-    {
-        yield return new WaitForSeconds(1.5f);
-        startUI[0].SetActive(true);
-        startUI[1].SetActive(true);
-    }
+    
 
     IEnumerator DelayedStart()
     {
