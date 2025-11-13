@@ -12,8 +12,6 @@ public class CollisionScript : MonoBehaviour
         if (coli.gameObject.CompareTag("Wall"))
         {
             particles.Play();
-            //wallHitSfx.Play();
-            print("wall hit");
         }
 
     }

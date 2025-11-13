@@ -54,7 +54,7 @@
                     "name": "SetPower",
                     "type": "Button",
                     "id": "a89ecff9-850a-4615-ae67-1d28a35348c6",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -66,6 +66,15 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Charge",
+                    "type": "Button",
+                    "id": "e340b530-1291-499c-a917-5d4b1cc4ca9f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Hold(duration=0.4)",
                     "initialStateCheck": false
                 }
             ],
@@ -243,6 +252,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Objective",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2c3fa3a9-2bef-401a-af9b-a16481ec65c4",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Charge",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

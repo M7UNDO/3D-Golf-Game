@@ -1,25 +1,20 @@
-using Cinemachine;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using TMPro;
-using Unity.VisualScripting;
-using System.Threading;
+using UnityEditor.ShaderGraph;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PullAndRelease : MonoBehaviour
 {
+    [Header("References")]
+    [SerializeField] PowerScript powerScript;
     public bool isLevel1 = false;
     public bool isLevel2 = false;
     public bool isLevel3 = false;
     public LevelUI levelUI;
     public Color ObjectivePassedColour;
     [Header("Player")]
-
-    public GameObject ball;
     [Header("Shot Count")]
     [Space(5)]
     public float NumberOfShots;
@@ -28,16 +23,14 @@ public class PullAndRelease : MonoBehaviour
 
     [Header("Pull And Release Mechanic")]
     [Space(5)]
-    private Rigidbody rb;
+    [SerializeField] private Rigidbody rb;
     public float playerHeight;
-    public LayerMask layer;
-    public LayerMask layer2;
+    public LayerMask groundLayer;
     public float Drag;
     private float xRotation = 0f;
     private float yRotation = 0f;
 
     public LineRenderer lineRenderer;
-    public float shotPower;
     public float airMultiplyer;
     private Vector3 movementDirection;
     private bool isGrounded;
@@ -49,18 +42,13 @@ public class PullAndRelease : MonoBehaviour
 
     [Header("Set Power")]
     [Space(5)]
-
-    public float HighShotAirMultiplyer;
-    public float LowMediumAirMultiplyer;
-    public float lowPowerShot = 0.5f;
-    public float mediumPowerShot = 1.2f;
-    public float highPowerShot = 2f;
+    public float minShotPower = 0.5f;
+    public float maxShotPower = 2f;
     public TextMeshProUGUI powerLevel;
     public AudioSource pullSfx;
     public AudioSource releaseSfx;
     public Slider powerSlider;
-private bool isCyclingPower = false;
-    //public ParticleEffectScript particleEffectScript;
+    private bool isCyclingPower = false;
 
     private PlayerControls playerInput;
     private System.Action<InputAction.CallbackContext> powerCallback;
@@ -69,31 +57,14 @@ private bool isCyclingPower = false;
 
     public void Start()
     {
-        rb = ball.transform.GetChild(0).GetComponent<Rigidbody>();
-        lineRenderer = ball.transform.GetChild(0).GetComponent<LineRenderer>();
-        //particleEffectScript.particles = ball.transform.GetChild(0).GetChild(2).GetComponent<ParticleSystem>();
-
-        //shotPower = mediumPowerShot;
-        powerSlider.minValue = lowPowerShot;
-        powerSlider.maxValue = highPowerShot;
-        powerSlider.value = mediumPowerShot;
-        powerSlider.onValueChanged.AddListener(UpdatePowerFromSlider);
-
-        if (isLevel1 == false)
-        {
-            powerLevel.color = Color.green;
-            powerLevel.text = "Medium Power Shot";
-        }
-
-
 
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        /*if (Input.GetKeyDown(KeyCode.R))
         {
             Save.instance.ResetSave();
-        }
+        }*/
 
         if (Time.timeScale == 0f) return;
         if(isLevel1 ==false)
@@ -101,7 +72,7 @@ private bool isCyclingPower = false;
             shotsTxt.text = NumberOfShots.ToString();
         }
         
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, layer);// Shoot a raycast onto the ground to determain what the drag//Potential to use this for different kinds of ground types
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, groundLayer);// Shoot a raycast onto the ground to determain what the drag//Potential to use this for different kinds of ground types
 
 
         if (isGrounded)
@@ -112,109 +83,19 @@ private bool isCyclingPower = false;
         {
              rb.linearDamping = 0.5f;
         }
-
-        if(isLevel1 == true || isLevel2 == true)
-        {
-            if(levelUI.tutorialUI[1].color == ObjectivePassedColour && levelUI.tutorialUI[2].color == ObjectivePassedColour)
-            {
-                levelUI.tutorialUI[0].color = ObjectivePassedColour;
-                StartCoroutine(DisplayUIOff());
-            }
-        }
        
 
 
-        ShootBall();
+        AimingBall();
       
     }
 
-
-    void OnEnable()
-    {
-        playerInput = new PlayerControls();
-        playerInput.Player.Enable();
-
-        powerCallback = ctx => SetPower();
-        playerInput.Player.SetPower.performed += powerCallback;
-    }
-
-    void OnDisable()
-    {
-        playerInput.Player.SetPower.performed -= powerCallback;
-        playerInput.Player.Disable();
-    }
-
-    private void UpdatePowerFromSlider(float value)
-    {
-        if (isCyclingPower) return; // prevent feedback loop
-        shotPower = value;
-
-        if (Mathf.Approximately(value, lowPowerShot))
-        {
-            powerLevel.color = Color.yellow;
-            powerLevel.text = "Low Power Shot";
-            airMultiplyer = LowMediumAirMultiplyer;
-        }
-        else if (Mathf.Approximately(value, mediumPowerShot))
-        {
-            powerLevel.color = Color.green;
-            powerLevel.text = "Medium Power Shot";
-            airMultiplyer = LowMediumAirMultiplyer;
-        }
-        else if (Mathf.Approximately(value, highPowerShot))
-        {
-            powerLevel.color = Color.red;
-            powerLevel.text = "High Power Shot";
-            airMultiplyer = HighShotAirMultiplyer;
-        }
-    }
 
     private void TrackShots()
     {
         NumberOfShots++;
     }
-
-    private void SetPower()
-    {
-        if (isLevel1) return;
-
-        if (isLevel2)
-        {
-            levelUI.tutorialUI[2].color = ObjectivePassedColour;
-            levelUI.tutorialarrow[1].color = ObjectivePassedColour;
-        }
-
-        isCyclingPower = true;
-
-        if (Mathf.Approximately(shotPower, mediumPowerShot))
-        {
-            shotPower = highPowerShot;
-            airMultiplyer = HighShotAirMultiplyer;
-            powerLevel.color = Color.red;
-            powerLevel.text = "High Power Shot";
-        }
-        else if (Mathf.Approximately(shotPower, highPowerShot))
-        {
-            shotPower = lowPowerShot;
-            airMultiplyer = LowMediumAirMultiplyer;
-            powerLevel.color = Color.yellow;
-            powerLevel.text = "Low Power Shot";
-        }
-        else
-        {
-            shotPower = mediumPowerShot;
-            airMultiplyer = LowMediumAirMultiplyer;
-            powerLevel.color = Color.green;
-            powerLevel.text = "Medium Power Shot";
-        }
-
-        powerSlider.value = shotPower;
-
-        isCyclingPower = false;
-    }
-
-
-    private void ShootBall()
+    private void AimingBall()
     {
         
        transform.position = rb.position;
@@ -280,41 +161,24 @@ private bool isCyclingPower = false;
 
         }
         
+        
+    }
 
-        if (Input.GetMouseButtonUp(0))
-        {
-            
-            releaseSfx.Play();
-            movementDirection = transform.forward;
+    public void Shoot()
+    {
+
+        releaseSfx.Play();
+        movementDirection = transform.forward;
+
+        float shootingPower = Mathf.Lerp(minShotPower, maxShotPower, powerScript.GetPowerValue());
             if (isGrounded)
-            {   
-                rb.AddForce(movementDirection.normalized * shotPower * 10f, ForceMode.Impulse);
+            {
+                rb.AddForce(movementDirection.normalized * shootingPower * 10f, ForceMode.Impulse);
                 lineRenderer.enabled = false;
+                 print("Shot Power: " + shootingPower);
             }
-            else if(!isGrounded)
-            {
-                rb.AddForce(movementDirection.normalized * shotPower * 10f * airMultiplyer, ForceMode.Impulse);
-            }
-
             TrackShots();
-            print(NumberOfShots);
 
-            if(isLevel1 == true)
-            {
-                levelUI.tutorialUI[2].color = ObjectivePassedColour;
-                levelUI.tutorialarrow[1].color = ObjectivePassedColour;
-            }
-
-            if (isLevel2 == true)
-            {
-                levelUI.tutorialUI[2].color = ObjectivePassedColour;
-                levelUI.tutorialarrow[1].color = ObjectivePassedColour;
-            }
-
-
-        }
-        
-        
     }
 
     IEnumerator DisplayUIOff()

@@ -140,7 +140,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""SetPower"",
                     ""type"": ""Button"",
                     ""id"": ""a89ecff9-850a-4615-ae67-1d28a35348c6"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -152,6 +152,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Charge"",
+                    ""type"": ""Button"",
+                    ""id"": ""e340b530-1291-499c-a917-5d4b1cc4ca9f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(duration=0.4)"",
                     ""initialStateCheck"": false
                 }
             ],
@@ -331,6 +340,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Objective"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2c3fa3a9-2bef-401a-af9b-a16481ec65c4"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Charge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -346,6 +366,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_SetPower = m_Player.FindAction("SetPower", throwIfNotFound: true);
         m_Player_Objective = m_Player.FindAction("Objective", throwIfNotFound: true);
+        m_Player_Charge = m_Player.FindAction("Charge", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -433,6 +454,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_SetPower;
     private readonly InputAction m_Player_Objective;
+    private readonly InputAction m_Player_Charge;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -472,6 +494,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Objective".
         /// </summary>
         public InputAction @Objective => m_Wrapper.m_Player_Objective;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Charge".
+        /// </summary>
+        public InputAction @Charge => m_Wrapper.m_Player_Charge;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -519,6 +545,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Objective.started += instance.OnObjective;
             @Objective.performed += instance.OnObjective;
             @Objective.canceled += instance.OnObjective;
+            @Charge.started += instance.OnCharge;
+            @Charge.performed += instance.OnCharge;
+            @Charge.canceled += instance.OnCharge;
         }
 
         /// <summary>
@@ -551,6 +580,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Objective.started -= instance.OnObjective;
             @Objective.performed -= instance.OnObjective;
             @Objective.canceled -= instance.OnObjective;
+            @Charge.started -= instance.OnCharge;
+            @Charge.performed -= instance.OnCharge;
+            @Charge.canceled -= instance.OnCharge;
         }
 
         /// <summary>
@@ -640,5 +672,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnObjective(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Charge" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCharge(InputAction.CallbackContext context);
     }
 }
