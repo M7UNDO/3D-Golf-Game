@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: c81599feeec05d14fbf3dd64b71864c8, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 56113b3b655ab7349bab4d7d405c258a, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -326,8 +326,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: MINI GOLF
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 14ec11600fac96b43bba74a0210b1cc8, type: 2}
-  m_sharedMaterial: {fileID: 1828390033692468050, guid: 14ec11600fac96b43bba74a0210b1cc8,
+  m_fontAsset: {fileID: 11400000, guid: 7fd0adeda7284eb43baffbe8182ee95c, type: 2}
+  m_sharedMaterial: {fileID: -5297821036313718341, guid: 7fd0adeda7284eb43baffbe8182ee95c,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -966,7 +966,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7509433, g: 0.41797784, b: 0.41797784, a: 1}
   m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
@@ -1551,7 +1551,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonTxt: {fileID: 2084041426}
   originalColor: {r: 1, g: 1, b: 1, a: 1}
-  highlightColor: {r: 1, g: 0.8615707, b: 0, a: 1}
+  highlightColor: {r: 0.18490559, g: 0.18490559, b: 0.18490559, a: 1}
 --- !u!114 &280034047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3795,7 +3795,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonTxt: {fileID: 1072605843}
   originalColor: {r: 1, g: 1, b: 1, a: 1}
-  highlightColor: {r: 1, g: 0.8615707, b: 0, a: 1}
+  highlightColor: {r: 0.18490559, g: 0.18490559, b: 0.18490559, a: 1}
 --- !u!114 &673118381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5452,7 +5452,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &871110920
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6665,7 +6665,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1032359257
 Transform:
   m_ObjectHideFlags: 0
@@ -7140,16 +7140,16 @@ MonoBehaviour:
       m_Calls: []
   m_text: Play Game
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d4ec8f6d587e7d94897f5ec2dbebb1a5, type: 2}
-  m_sharedMaterial: {fileID: -7425989736844847115, guid: d4ec8f6d587e7d94897f5ec2dbebb1a5,
+  m_fontAsset: {fileID: 11400000, guid: 7fd0adeda7284eb43baffbe8182ee95c, type: 2}
+  m_sharedMaterial: {fileID: -5297821036313718341, guid: 7fd0adeda7284eb43baffbe8182ee95c,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 2868903935
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0.6666667}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -8884,7 +8884,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonTxt: {fileID: 1994736552}
   originalColor: {r: 1, g: 1, b: 1, a: 1}
-  highlightColor: {r: 1, g: 0.8615707, b: 0, a: 1}
+  highlightColor: {r: 0.18490559, g: 0.18490559, b: 0.18490559, a: 1}
 --- !u!114 &1442525202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10295,113 +10295,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee8b675d7c2a63e458f60f4b1a2f9bde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1804854416
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1804854420}
-  - component: {fileID: 1804854419}
-  - component: {fileID: 1804854418}
-  - component: {fileID: 1804854417}
-  m_Layer: 0
-  m_Name: Terrain (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
---- !u!114 &1804854417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1804854416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a0cec86ef897c6459ab2f6410ce5748, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelIndex: 1
---- !u!154 &1804854418
-TerrainCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1804854416}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_TerrainData: {fileID: 15600000, guid: 21f4eee19d7ce89469c477014817c7a9, type: 2}
-  m_EnableTreeColliders: 1
---- !u!218 &1804854419
-Terrain:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1804854416}
-  m_Enabled: 1
-  serializedVersion: 6
-  m_TerrainData: {fileID: 15600000, guid: 21f4eee19d7ce89469c477014817c7a9, type: 2}
-  m_TreeDistance: 5000
-  m_TreeBillboardDistance: 50
-  m_TreeCrossFadeLength: 5
-  m_TreeMaximumFullLODCount: 50
-  m_DetailObjectDistance: 80
-  m_DetailObjectDensity: 1
-  m_HeightmapPixelError: 5
-  m_SplatMapDistance: 1000
-  m_HeightmapMinimumLODSimplification: 0
-  m_HeightmapMaximumLOD: 0
-  m_ShadowCastingMode: 2
-  m_DrawHeightmap: 1
-  m_DrawInstanced: 0
-  m_DrawTreesAndFoliage: 1
-  m_StaticShadowCaster: 0
-  m_IgnoreQualitySettings: 0
-  m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 2100000, guid: 594ea882c5a793440b60ff72d896021e, type: 2}
-  m_BakeLightProbesForTrees: 1
-  m_PreserveTreePrototypeLayers: 0
-  m_DeringLightProbesForTrees: 1
-  m_ReceiveGI: 1
-  m_ScaleInLightmap: 0.0256
-  m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
-  m_GroupingID: 0
-  m_RenderingLayerMask: 1
-  m_AllowAutoConnect: 1
-  m_EnableHeightmapRayTracing: 1
-  m_EnableTreesAndDetailsRayTracing: 0
-  m_TreeMotionVectorModeOverride: 3
---- !u!4 &1804854420
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1804854416}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -39.9, y: -0.71, z: -55}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1828231802
 GameObject:
   m_ObjectHideFlags: 0
@@ -11440,7 +11333,7 @@ Transform:
   m_GameObject: {fileID: 1976646982}
   serializedVersion: 2
   m_LocalRotation: {x: -0.034716, y: 0.6087352, z: 0.026686108, w: 0.7921642}
-  m_LocalPosition: {x: -27.468727, y: 11.895354, z: -11.890324}
+  m_LocalPosition: {x: -27.468727, y: 10.39, z: -11.890324}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11595,16 +11488,16 @@ MonoBehaviour:
       m_Calls: []
   m_text: AUDIO SETTINGS
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d4ec8f6d587e7d94897f5ec2dbebb1a5, type: 2}
-  m_sharedMaterial: {fileID: -7425989736844847115, guid: d4ec8f6d587e7d94897f5ec2dbebb1a5,
+  m_fontAsset: {fileID: 11400000, guid: 7fd0adeda7284eb43baffbe8182ee95c, type: 2}
+  m_sharedMaterial: {fileID: -5297821036313718341, guid: 7fd0adeda7284eb43baffbe8182ee95c,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 2868903935
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0.6666667}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -12067,16 +11960,16 @@ MonoBehaviour:
       m_Calls: []
   m_text: EXIT GAME
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d4ec8f6d587e7d94897f5ec2dbebb1a5, type: 2}
-  m_sharedMaterial: {fileID: -7425989736844847115, guid: d4ec8f6d587e7d94897f5ec2dbebb1a5,
+  m_fontAsset: {fileID: 11400000, guid: 7fd0adeda7284eb43baffbe8182ee95c, type: 2}
+  m_sharedMaterial: {fileID: -5297821036313718341, guid: 7fd0adeda7284eb43baffbe8182ee95c,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 2868903935
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0.6666667}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -12306,7 +12199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonTxt: {fileID: 2108436695}
   originalColor: {r: 1, g: 1, b: 1, a: 1}
-  highlightColor: {r: 1, g: 0.8615707, b: 0, a: 1}
+  highlightColor: {r: 0.18490559, g: 0.18490559, b: 0.18490559, a: 1}
 --- !u!114 &2089576104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12568,16 +12461,16 @@ MonoBehaviour:
       m_Calls: []
   m_text: Control Scheme
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d4ec8f6d587e7d94897f5ec2dbebb1a5, type: 2}
-  m_sharedMaterial: {fileID: -7425989736844847115, guid: d4ec8f6d587e7d94897f5ec2dbebb1a5,
+  m_fontAsset: {fileID: 11400000, guid: 7fd0adeda7284eb43baffbe8182ee95c, type: 2}
+  m_sharedMaterial: {fileID: -5297821036313718341, guid: 7fd0adeda7284eb43baffbe8182ee95c,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 2868903935
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0.6666667}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -13182,6 +13075,5 @@ SceneRoots:
   - {fileID: 6517730345047176326}
   - {fileID: 52425640}
   - {fileID: 1032359257}
-  - {fileID: 1804854420}
   - {fileID: 237511022}
   - {fileID: 428576120}

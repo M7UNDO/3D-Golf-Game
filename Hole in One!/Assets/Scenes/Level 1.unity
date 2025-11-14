@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 8c94435c262dc614799eb36fd36c5b4a, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 56113b3b655ab7349bab4d7d405c258a, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -533,17 +533,17 @@ PrefabInstance:
     - target: {fileID: 7027784607103428669, guid: dd3129460c76f464f8aba53288d1503c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.543
+      value: -2.904
       objectReference: {fileID: 0}
     - target: {fileID: 7027784607103428669, guid: dd3129460c76f464f8aba53288d1503c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.047
+      value: 0.528
       objectReference: {fileID: 0}
     - target: {fileID: 7027784607103428669, guid: dd3129460c76f464f8aba53288d1503c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.64
+      value: -6.898
       objectReference: {fileID: 0}
     - target: {fileID: 7027784607103428669, guid: dd3129460c76f464f8aba53288d1503c,
         type: 3}
@@ -718,7 +718,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2964719, y: 0.15947682, z: -0.050282836, w: 0.9402889}
-  m_LocalPosition: {x: -3.6557856, y: 3.4101343, z: -8.826173}
+  m_LocalPosition: {x: -4.016786, y: 2.8911347, z: -10.084173}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2605,7 +2605,7 @@ Transform:
   m_GameObject: {fileID: 839500036}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2964719, y: 0.15947682, z: -0.050282836, w: 0.9402889}
-  m_LocalPosition: {x: -3.6557856, y: 3.4101343, z: -8.826173}
+  m_LocalPosition: {x: -4.016786, y: 2.8911347, z: -10.084173}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3840,7 +3840,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1262715246}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -6682,53 +6682,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1675358169}
     m_Modifications:
-    - target: {fileID: 4002021216739364338, guid: 498e75beaa7efdb46ab38fe29e436314,
-        type: 3}
-      propertyPath: m_margin.z
-      value: -0.6726074
-      objectReference: {fileID: 0}
-    - target: {fileID: 4002021216739364338, guid: 498e75beaa7efdb46ab38fe29e436314,
-        type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 7fd0adeda7284eb43baffbe8182ee95c,
-        type: 2}
-    - target: {fileID: 4002021216739364338, guid: 498e75beaa7efdb46ab38fe29e436314,
-        type: 3}
-      propertyPath: m_fontColor.a
-      value: 0.3254902
-      objectReference: {fileID: 0}
-    - target: {fileID: 4002021216739364338, guid: 498e75beaa7efdb46ab38fe29e436314,
-        type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -5297821036313718341, guid: 7fd0adeda7284eb43baffbe8182ee95c,
-        type: 2}
-    - target: {fileID: 4002021216739364338, guid: 498e75beaa7efdb46ab38fe29e436314,
-        type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 1409286143
-      objectReference: {fileID: 0}
-    - target: {fileID: 4002021216739364338, guid: 498e75beaa7efdb46ab38fe29e436314,
-        type: 3}
-      propertyPath: m_VerticalAlignment
-      value: 512
-      objectReference: {fileID: 0}
-    - target: {fileID: 4002021216739364338, guid: 498e75beaa7efdb46ab38fe29e436314,
-        type: 3}
-      propertyPath: m_HorizontalAlignment
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4002021216739364338, guid: 498e75beaa7efdb46ab38fe29e436314,
-        type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4002021216739364338, guid: 498e75beaa7efdb46ab38fe29e436314,
-        type: 3}
-      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
-      value: 1801810542
-      objectReference: {fileID: 0}
     - target: {fileID: 6816930554220926837, guid: 498e75beaa7efdb46ab38fe29e436314,
         type: 3}
       propertyPath: m_Name
