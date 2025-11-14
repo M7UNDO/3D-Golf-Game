@@ -24,6 +24,7 @@ public class Game : MonoBehaviour
     #endregion
 
     [SerializeField] private TextMeshProUGUI[] allCoinsUIText;
+    [SerializeField] private SaveManager saveManager;
 
     private void Start()
     {
@@ -43,6 +44,15 @@ public class Game : MonoBehaviour
             RemoveCoins(100);
             Debug.Log("-100 Coins");
         }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            ResetGame();
+        }
+    }
+
+    public void ResetGame()
+    {
+        saveManager.ResetGame();
     }
 
     #region Coins Management

@@ -1,12 +1,13 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System.Collections.Generic;
 
 public class ShopUI : MonoBehaviour
 {
     public static ShopUI Instance;
-
+    public SaveManager saveManager;
     public List<BallItem> shopItems;
     public Transform shopScrollView;
     public GameObject shopItemTemplate;  // prefab
@@ -21,6 +22,7 @@ public class ShopUI : MonoBehaviour
         UpdateCoinsUI();
     }
 
+
     void PopulateShop()
     {
         foreach (Transform child in shopScrollView) Destroy(child.gameObject);
@@ -32,20 +34,20 @@ public class ShopUI : MonoBehaviour
 
             // Assign icon and texts
             // Assign sprite
-            g.transform.Find("ImageMask/BallSprite").GetComponent<Image>().sprite = item.Icon;
+            g.transform.GetChild(1).transform.GetChild(0).GetComponent<Image>().sprite = item.Icon;
 
             // Assign display name
-            g.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = item.DisplayName;
+            g.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = item.DisplayName;
 
             // Assign price
-            g.transform.Find("CoinIcon/PriceTxt").GetComponent<TextMeshProUGUI>().text = item.Price.ToString();
+            g.transform.GetChild(2).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = item.Price.ToString();
 
             // Buy button click
-            Button buyBtn = g.transform.Find("BuyButton").GetComponent<Button>();
+            Button buyBtn = g.transform.GetChild(3).GetComponent<Button>();
             int index = i;
             buyBtn.onClick.AddListener(() => OnBuyButtonClicked(index));
 
-            if (SaveManager.instance.IsPurchased(item))
+            if (saveManager.IsPurchased(item))
                 buyBtn.interactable = false;
         }
     }
@@ -53,31 +55,31 @@ public class ShopUI : MonoBehaviour
     void OnBuyButtonClicked(int index)
     {
         BallItem item = shopItems[index];
-        if (SaveManager.instance.saveData.Coins >= item.Price)
+        if (saveManager.saveData.Coins >= item.Price)
         {
-            SaveManager.instance.saveData.Coins -= item.Price;
-            SaveManager.instance.PurchaseItem(item);
+            saveManager.saveData.Coins -= item.Price;
+            saveManager.PurchaseItem(item);
 
-            // Apply to ball immediately
             ballCustomizer.ApplyBall(item);
-            SaveManager.instance.SetSelectedBall(index);
+            saveManager.SetSelectedBall(index);
 
             UpdateCoinsUI();
-            PopulateShop(); // refresh buttons
+            PopulateShop();
 
-            // Refresh customization UI
+
             BallCustomizationUI customizationUI = FindFirstObjectByType<BallCustomizationUI>();
             if (customizationUI != null)
                 customizationUI.RefreshUI();
         }
         else
         {
+            
             Debug.Log("Not enough coins!");
         }
     }
 
     void UpdateCoinsUI()
     {
-        coinsText.text = SaveManager.instance.saveData.Coins.ToString();
+        coinsText.text = saveManager.saveData.Coins.ToString();
     }
 }

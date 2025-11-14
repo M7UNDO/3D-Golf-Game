@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a7198201d1684e4296035e75d9f5752, type: 3}
+  m_Name: Hexi pattern
+  m_EditorClassIdentifier: 
+  ItemID: Hexi_pattern_f6805b4d1eac4c119c12660b8ee4897b
+  DisplayName: Hexi pattern
+  Icon: {fileID: 21300000, guid: 8f50f392f3b11d7458e041ea25bb04e9, type: 3}
+  Material: {fileID: 2100000, guid: 7b610b295130c604d8d1ab7f07d833d7, type: 2}
+  Price: 2000
