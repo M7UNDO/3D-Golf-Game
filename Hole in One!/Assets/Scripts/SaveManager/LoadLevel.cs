@@ -10,7 +10,7 @@ public class LoadLevel : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        SetupLevelButtons();
+        //SetupLevelButtons();
     }
     public void LoadLevelNumber(int _index)
     {
@@ -20,12 +20,12 @@ public class LoadLevel : MonoBehaviour
 
    public void Play()
    {
-        int levelToLoad = GetLastUnlockedLevel();
+        //int levelToLoad = GetLastUnlockedLevel();
         Time.timeScale = 1;
-        SceneManager.LoadScene(levelToLoad);
+        //SceneManager.LoadScene(levelToLoad);
    }
 
-   int GetLastUnlockedLevel()
+   /*int GetLastUnlockedLevel()
    {
         bool[] unlocked = Save.instance.LevelsUnlocked;
 
@@ -36,7 +36,7 @@ public class LoadLevel : MonoBehaviour
         }
 
         return 1; // Fallback to Level 1 (scene index 1)
-   }
+   }*/
 
 
     /*
@@ -54,8 +54,8 @@ public class LoadLevel : MonoBehaviour
 
         if (nextLevel < Save.instance.LevelsUnlocked.Length)
         {
-            Save.instance.LevelsUnlocked[nextLevel] = true;
-            Save.instance.SaveData();
+            //Save.instance.LevelsUnlocked[nextLevel] = true;
+            //Save.instance.SaveData();
         }
     }
 
@@ -65,7 +65,7 @@ public class LoadLevel : MonoBehaviour
         Time.timeScale = 1;
         SceneManager.LoadScene(levelIndex);
     }
-    void SetupLevelButtons()
+    /*void SetupLevelButtons()
     {
         for (int i = 0; i < Save.instance.LevelsUnlocked.Length && i < levelButtons.Length; i++)
         {
@@ -82,6 +82,6 @@ public class LoadLevel : MonoBehaviour
                 levelButtons[i].onClick.AddListener(() => LoadLevelByIndex(sceneBuildIndex));
             }
         }
-    }
+    }a*/
 
 }

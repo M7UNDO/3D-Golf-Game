@@ -2,9 +2,9 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-public class SaveManager : MonoBehaviour
+public class SaveManager_ : MonoBehaviour
 {
-    public static SaveManager Instance;
+    public static SaveManager_ Instance;
 
 
     void Awake()

@@ -1,74 +1,93 @@
-
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class Game : MonoBehaviour
 {
-    #region SIngleton:Game
+    #region Singleton:Game
 
     public static Game Instance;
 
-    void Awake()
+    private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            //DontDestroyOnLoad(gameObject);
+            // Uncomment if you want this object to persist across scenes
+            // DontDestroyOnLoad(gameObject);
         }
         else
         {
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 
     #endregion
 
-    [SerializeField] TextMeshProUGUI[] allCoinsUIText;
+    [SerializeField] private TextMeshProUGUI[] allCoinsUIText;
 
-    //public int Coins;
-
-    void Start()
+    private void Start()
     {
         UpdateAllCoinsUIText();
-
     }
 
     private void Update()
     {
+        // Debug keys for testing coins
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            Save.instance.Coins += 100;
-            Save.instance.SaveData();
-            print("+100");
+            AddCoins(100);
+            Debug.Log("+100 Coins");
         }
-
         else if (Input.GetKeyDown(KeyCode.X))
         {
-            Save.instance.Coins -= 100;
-            Save.instance.SaveData();
-            print("-100");
+            RemoveCoins(100);
+            Debug.Log("-100 Coins");
         }
+    }
 
+    #region Coins Management
+
+    public void AddCoins(int amount)
+    {
+        SaveManager.instance.saveData.Coins += amount;
+        SaveManager.instance.SaveGame();
         UpdateAllCoinsUIText();
     }
 
-    public void UseCoins(int amount)
+    public void RemoveCoins(int amount)
     {
-        Save.instance.Coins -= amount;
+        SaveManager.instance.saveData.Coins = Mathf.Max(0, SaveManager.instance.saveData.Coins - amount);
+        SaveManager.instance.SaveGame();
+        UpdateAllCoinsUIText();
     }
 
     public bool HasEnoughCoins(int amount)
     {
-        return (Save.instance.Coins >= amount);
+        return SaveManager.instance.saveData.Coins >= amount;
     }
 
-    public void UpdateAllCoinsUIText()
+    public void UseCoins(int amount)
     {
-        for (int i = 0; i < allCoinsUIText.Length; i++)
+        if (HasEnoughCoins(amount))
         {
-            allCoinsUIText[i].text = Save.instance.Coins.ToString();
+            RemoveCoins(amount);
+        }
+        else
+        {
+            Debug.LogWarning("Not enough coins!");
         }
     }
 
+    #endregion
+
+    public void UpdateAllCoinsUIText()
+    {
+        int coins = SaveManager.instance.saveData.Coins;
+
+        foreach (var txt in allCoinsUIText)
+        {
+            if (txt != null)
+                txt.text = coins.ToString();
+        }
+    }
 }
