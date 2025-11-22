@@ -57,6 +57,7 @@ public class ShopUI : MonoBehaviour
         BallItem item = shopItems[index];
         if (saveManager.saveData.Coins >= item.Price)
         {
+            Debug.Log(message: $"{saveManager.saveData.Coins}");
             saveManager.saveData.Coins -= item.Price;
             saveManager.PurchaseItem(item);
 

@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
@@ -8,6 +5,7 @@ using UnityEngine.InputSystem;
 public class PauseScript : MonoBehaviour
 {
     private bool toggle;
+    public static bool IsGamePaused { get; private set; } = false;
     private PlayerControls playerInput;
 
     private System.Action<InputAction.CallbackContext> pauseAction;
@@ -15,6 +13,11 @@ public class PauseScript : MonoBehaviour
     [Header("Pause UI Elements")]
     [Space(5)]
     [SerializeField] private GameObject pausePanel;
+
+    public static void SetPause(bool paused)
+    {
+        IsGamePaused = paused;
+    }
 
     private void OnEnable()
     {

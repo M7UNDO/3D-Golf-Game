@@ -9,11 +9,7 @@ public class PullAndRelease : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] PowerScript powerScript;
-    public bool isLevel1 = false;
-    public bool isLevel2 = false;
-    public bool isLevel3 = false;
-    public LevelUI levelUI;
-    public Color ObjectivePassedColour;
+
     [Header("Player")]
     [Header("Shot Count")]
     [Space(5)]
@@ -48,7 +44,6 @@ public class PullAndRelease : MonoBehaviour
     public AudioSource pullSfx;
     public AudioSource releaseSfx;
     public Slider powerSlider;
-    private bool isCyclingPower = false;
 
     private PlayerControls playerInput;
     private System.Action<InputAction.CallbackContext> powerCallback;
@@ -61,16 +56,8 @@ public class PullAndRelease : MonoBehaviour
     }
     void Update()
     {
-        /*if (Input.GetKeyDown(KeyCode.R))
-        {
-            Save.instance.ResetSave();
-        }*/
 
         if (Time.timeScale == 0f) return;
-        if(isLevel1 ==false)
-        {
-            shotsTxt.text = NumberOfShots.ToString();
-        }
         
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, groundLayer);// Shoot a raycast onto the ground to determain what the drag//Potential to use this for different kinds of ground types
 
@@ -94,6 +81,8 @@ public class PullAndRelease : MonoBehaviour
     private void TrackShots()
     {
         NumberOfShots++;
+        shotsTxt.text = NumberOfShots.ToString();
+        print("ShotAdded");
     }
     private void AimingBall()
     {
@@ -118,7 +107,7 @@ public class PullAndRelease : MonoBehaviour
             yRotation = Mathf.Clamp(yRotation, -35f, 35f);
 
 
-            if(isLevel1 == true)
+            /*if(isLevel1 == true)
             {
                 if (Mathf.Abs(xRotation) > 0.01f)
                 {
@@ -154,7 +143,7 @@ public class PullAndRelease : MonoBehaviour
                 }
 
 
-            }
+            }*/
 
 
 
@@ -175,26 +164,10 @@ public class PullAndRelease : MonoBehaviour
             {
                 rb.AddForce(movementDirection.normalized * shootingPower * 10f, ForceMode.Impulse);
                 lineRenderer.enabled = false;
-                 print("Shot Power: " + shootingPower);
+                TrackShots();
+                print("Shot Power: " + shootingPower);
             }
-            TrackShots();
-
-    }
-
-    IEnumerator DisplayUIOff()
-    {
-        yield return new WaitForSeconds(3f);
-        if(isLevel1 == true)
-        {
-            levelUI.UIElements[1].SetActive(false);
-
-        }
-
-        if (isLevel2 == true)
-        {
-            levelUI.UIElements[1].SetActive(false);
-
-        }
+            
 
     }
 }
