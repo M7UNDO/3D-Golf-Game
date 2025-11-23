@@ -1,9 +1,6 @@
-using System.Collections;
-using TMPro;
-using UnityEditor.ShaderGraph;
 using UnityEngine;
+using TMPro;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class PullAndRelease : MonoBehaviour
 {
@@ -11,44 +8,41 @@ public class PullAndRelease : MonoBehaviour
     [SerializeField] PowerScript powerScript;
 
     [Header("Player")]
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private float playerHeight;
+    [SerializeField] private LineRenderer lineRenderer;
+
     [Header("Shot Count")]
     [Space(5)]
     public float NumberOfShots;
     public TextMeshProUGUI shotsTxt;
-    private Transform lastPos;
 
-    [Header("Pull And Release Mechanic")]
+    [Header("Ball Physics")]
     [Space(5)]
-    [SerializeField] private Rigidbody rb;
-    public float playerHeight;
     public LayerMask groundLayer;
     public float Drag;
-    private float xRotation = 0f;
-    private float yRotation = 0f;
-
-    public LineRenderer lineRenderer;
     public float airMultiplyer;
     private Vector3 movementDirection;
     private bool isGrounded;
 
     [Header("Rotation Sensitivity")]
     [Space(5)]
+    private float xRotation = 0f;
+    private float yRotation = 0f;
     public float xSensitivity;
     public float ySensitivity;
 
-    [Header("Set Power")]
+    [Header("Power Settings")]
     [Space(5)]
     public float minShotPower = 0.5f;
     public float maxShotPower = 2f;
     public TextMeshProUGUI powerLevel;
+
+
+    [Header("SFX")]
+    [Space(5)]
     public AudioSource pullSfx;
     public AudioSource releaseSfx;
-    public Slider powerSlider;
-
-    private PlayerControls playerInput;
-    private System.Action<InputAction.CallbackContext> powerCallback;
-
-
 
     public void Start()
     {
@@ -57,7 +51,13 @@ public class PullAndRelease : MonoBehaviour
     void Update()
     {
 
-        if (Time.timeScale == 0f) return;
+        if (PauseScript.IsGamePaused || Time.timeScale == 0f) return;
+
+        if (!powerScript.charging)
+        {
+            lineRenderer.enabled = false;
+            return;
+        }
         
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, groundLayer);// Shoot a raycast onto the ground to determain what the drag//Potential to use this for different kinds of ground types
 
@@ -82,15 +82,14 @@ public class PullAndRelease : MonoBehaviour
     {
         NumberOfShots++;
         shotsTxt.text = NumberOfShots.ToString();
-        print("ShotAdded");
     }
     private void AimingBall()
     {
         
        transform.position = rb.position;
-        if (Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0))
         {
-            pullSfx.Play();
+            if(pullSfx != null) pullSfx.Play();
         }
 
         if (Input.GetMouseButton(0))
@@ -155,8 +154,9 @@ public class PullAndRelease : MonoBehaviour
 
     public void Shoot()
     {
+        if(releaseSfx != null) releaseSfx.Play();
 
-        releaseSfx.Play();
+            
         movementDirection = transform.forward;
 
         float shootingPower = Mathf.Lerp(minShotPower, maxShotPower, powerScript.GetPowerValue());
@@ -165,7 +165,6 @@ public class PullAndRelease : MonoBehaviour
                 rb.AddForce(movementDirection.normalized * shootingPower * 10f, ForceMode.Impulse);
                 lineRenderer.enabled = false;
                 TrackShots();
-                print("Shot Power: " + shootingPower);
             }
             
 

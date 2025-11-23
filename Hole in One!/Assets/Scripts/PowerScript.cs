@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -12,7 +13,7 @@ public class PowerScript : MonoBehaviour
 
     [Header("Settings")]
     public float fillSpeed = 1f;
-    private bool charging;
+    public bool charging;
     private bool goingUp = true;
     public float powerValue;
 
@@ -29,6 +30,13 @@ public class PowerScript : MonoBehaviour
 
         controls.Player.Charge.performed += ctx => StartCharging();
         controls.Player.Charge.canceled += ctx => ReleasePower();
+        controls.Player.CancelCharge.performed += ctx => CancelCharge();
+    }
+
+    private void CancelCharge()
+    {
+        charging = false;
+        barContainer.SetActive(false);
     }
 
     private void OnEnable() => controls.Enable();

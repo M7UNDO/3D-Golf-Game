@@ -10,8 +10,11 @@ public class WallHit : MonoBehaviour
     {
         if (coli.gameObject.CompareTag("Player"))
         {
-
             wallHitSfx.Play();
+            if(coli.gameObject.GetComponent<ParticleSystem>() != null)
+            {
+                coli.gameObject.GetComponent<ParticleSystem>().Play();
+            }
         }
     }
 }

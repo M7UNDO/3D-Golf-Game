@@ -39,12 +39,12 @@ public class LevelUI : MonoBehaviour
         playerInput.Player.Enable();
 
         closeObjectiveAction = ctx => CloseObjective();
-        playerInput.Player.Objective.performed += closeObjectiveAction;
+        //playerInput.Player.Objective.performed += closeObjectiveAction;
     }
 
     private void OnDisable()
     {
-        playerInput.Player.Objective.performed -= closeObjectiveAction;
+        //playerInput.Player.Objective.performed -= closeObjectiveAction;
         playerInput.Player.Disable();
     }
 

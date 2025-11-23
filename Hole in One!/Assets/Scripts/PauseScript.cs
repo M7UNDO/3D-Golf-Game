@@ -48,8 +48,6 @@ public class PauseScript : MonoBehaviour
             pausePanel.SetActive(false);
             Time.timeScale = 1f;
         }
-
-        print("Pause toggled: " + toggle);
     }
 
     public void LoadMainMenu()

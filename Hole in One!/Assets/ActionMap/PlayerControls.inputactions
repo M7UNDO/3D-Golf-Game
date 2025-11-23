@@ -18,7 +18,7 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "2b4b8c95-ae67-4fa6-9bb5-e949f90c98e3",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -45,25 +45,7 @@
                     "name": "Pause",
                     "type": "Button",
                     "id": "496f3c82-e393-4ac5-b8fe-3a8bb91a5eb7",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "SetPower",
-                    "type": "Button",
-                    "id": "a89ecff9-850a-4615-ae67-1d28a35348c6",
                     "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Objective",
-                    "type": "Button",
-                    "id": "95217095-6db1-4064-9f4d-413bbcf0aef2",
-                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -74,7 +56,16 @@
                     "id": "e340b530-1291-499c-a917-5d4b1cc4ca9f",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Hold(duration=0.4)",
+                    "interactions": "Hold(duration=0.2)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CancelCharge",
+                    "type": "Button",
+                    "id": "ec216b07-bc54-45c8-8f2e-698c1f842093",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -235,34 +226,23 @@
                 },
                 {
                     "name": "",
-                    "id": "f01bbd56-8a32-4398-989f-1a73e509a46a",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SetPower",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ca0a2add-7205-44b9-8530-fc4f6f810ae7",
-                    "path": "<Keyboard>/o",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Objective",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "2c3fa3a9-2bef-401a-af9b-a16481ec65c4",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Charge",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dceb1de2-2eab-481a-8cdb-bfafd3c046d0",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CancelCharge",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
