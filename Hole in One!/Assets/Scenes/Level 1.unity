@@ -6501,8 +6501,8 @@ MonoBehaviour:
     m_Bits: 64
   Drag: 0.5
   airMultiplyer: 0.3
-  xSensitivity: 6
-  ySensitivity: 6
+  xSensitivity: 0.5
+  ySensitivity: 0.5
   minShotPower: 0.5
   maxShotPower: 2
   powerLevel: {fileID: 475797690}

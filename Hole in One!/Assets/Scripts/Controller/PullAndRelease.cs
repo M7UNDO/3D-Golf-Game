@@ -7,6 +7,12 @@ public class PullAndRelease : MonoBehaviour
     [Header("References")]
     [SerializeField] PowerScript powerScript;
 
+    [Header("Input Actions")]
+    private InputActionMap player;
+    private InputActionAsset inputAsset;
+    private InputAction look;
+    private InputAction charge;
+
     [Header("Player")]
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float playerHeight;
@@ -44,18 +50,26 @@ public class PullAndRelease : MonoBehaviour
     public AudioSource pullSfx;
     public AudioSource releaseSfx;
 
+    private void Awake()
+    {
+        inputAsset = rb.gameObject.GetComponent<PlayerInput>().actions;
+        player = inputAsset.FindActionMap("Player");
+        
+    }
 
-    
+    private void OnEnable()
+    {
+        look = player.FindAction("LookAround");
+        charge = player.FindAction("Charge");
+        player.Enable();
+    }
+
+
     void Update()
     {
 
         if (PauseScript.IsGamePaused || Time.timeScale == 0f) return;
 
-        if (!powerScript.charging)
-        {
-            lineRenderer.enabled = false;
-            return;
-        }
         
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, groundLayer);// Shoot a raycast onto the ground to determain what the drag//Potential to use this for different kinds of ground types
 
@@ -85,17 +99,19 @@ public class PullAndRelease : MonoBehaviour
     {
         
        transform.position = rb.position;
-        if(Input.GetMouseButtonDown(0))
+        if(charge.WasPressedThisFrame())
         {
             if(pullSfx != null) pullSfx.Play();
         }
 
-        if (Input.GetMouseButton(0))
+        Vector2 lookInput = look.ReadValue<Vector2>();
+
+        if (charge.IsPressed())
         {
             
             
-            xRotation += Input.GetAxis("Mouse X") *  xSensitivity;
-            yRotation += Input.GetAxis("Mouse Y") * ySensitivity;
+            xRotation += lookInput.x *  xSensitivity;
+            yRotation += lookInput.y * ySensitivity;
             transform.rotation = Quaternion.Euler(yRotation, xRotation, 0f); // transform the rotation of the golf ball
 
             lineRenderer.enabled = true;
@@ -145,6 +161,10 @@ public class PullAndRelease : MonoBehaviour
 
 
 
+        }
+        else
+        {
+            lineRenderer.enabled = false;
         }
         
         

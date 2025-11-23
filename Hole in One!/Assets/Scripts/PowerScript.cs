@@ -30,12 +30,8 @@ public class PowerScript : MonoBehaviour
 
     private void Awake()
     {
-        //controls = new PlayerControls();
         inputAsset = GetComponent<PlayerInput>().actions;
         player = inputAsset.FindActionMap("Player");
-        //controls.Player.Charge.performed += ctx => StartCharging();
-        //controls.Player.Charge.canceled += ctx => ReleasePower();
-        //controls.Player.CancelCharge.performed += ctx => CancelCharge();
     }
 
     private void CancelCharge()
