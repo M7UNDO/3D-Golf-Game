@@ -24,13 +24,18 @@ public class PowerScript : MonoBehaviour
 
     private PlayerControls controls;
 
+    [Header("Input Actions")]
+    private InputActionMap player;
+    private InputActionAsset inputAsset;
+
     private void Awake()
     {
-        controls = new PlayerControls();
-
-        controls.Player.Charge.performed += ctx => StartCharging();
-        controls.Player.Charge.canceled += ctx => ReleasePower();
-        controls.Player.CancelCharge.performed += ctx => CancelCharge();
+        //controls = new PlayerControls();
+        inputAsset = GetComponent<PlayerInput>().actions;
+        player = inputAsset.FindActionMap("Player");
+        //controls.Player.Charge.performed += ctx => StartCharging();
+        //controls.Player.Charge.canceled += ctx => ReleasePower();
+        //controls.Player.CancelCharge.performed += ctx => CancelCharge();
     }
 
     private void CancelCharge()
@@ -39,9 +44,17 @@ public class PowerScript : MonoBehaviour
         barContainer.SetActive(false);
     }
 
-    private void OnEnable() => controls.Enable();
+    private void OnEnable()
+    {
+        player.FindAction("Charge").performed += ctx => StartCharging();
+        player.FindAction("Charge").canceled += ctx => ReleasePower();
+        player.FindAction("CancelCharge").performed += ctx => CancelCharge();
+        player.Enable();
+    }
 
-    private void OnDisable() => controls.Disable();
+    //private void OnEnable() => controls.Enable();
+
+    private void OnDisable() => player.Disable();
 
     private void Update()
     {
@@ -93,7 +106,6 @@ public class PowerScript : MonoBehaviour
         powerValue = powerFill.fillAmount;
         barContainer.SetActive(false);
         pullAndRelease.Shoot();
-        print(powerValue);
     }
 
     public float GetPowerValue() => powerValue;

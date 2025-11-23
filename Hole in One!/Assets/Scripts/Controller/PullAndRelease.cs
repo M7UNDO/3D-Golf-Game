@@ -44,10 +44,8 @@ public class PullAndRelease : MonoBehaviour
     public AudioSource pullSfx;
     public AudioSource releaseSfx;
 
-    public void Start()
-    {
 
-    }
+    
     void Update()
     {
 
