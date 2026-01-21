@@ -115,8 +115,46 @@ public class PullAndRelease : MonoBehaviour
             transform.rotation = Quaternion.Euler(yRotation, xRotation, 0f); // transform the rotation of the golf ball
 
             lineRenderer.enabled = true;
-            lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, transform.position + transform.forward * 4f);
+            Vector3 startPos = transform.position;
+            Vector3 direction = transform.forward;
+
+            lineRenderer.positionCount = 3;
+            lineRenderer.SetPosition(0, startPos);
+
+            // Detect downward aim
+            bool aimingDown = Vector3.Dot(direction, Vector3.down) > 0.3f;
+
+            if (aimingDown)
+            {
+                // Project forward onto ground plane
+                if (Physics.Raycast(startPos + Vector3.up * 0.1f, Vector3.down, out RaycastHit groundHit, 5f))
+                {
+                    // Find a forward point along the ground
+                    Vector3 forwardOnGround = groundHit.point + (Vector3.ProjectOnPlane(direction, groundHit.normal).normalized * 3f);
+
+                    lineRenderer.positionCount = 2;
+                    lineRenderer.SetPosition(1, forwardOnGround + groundHit.normal * 0.05f);
+                }
+            }
+            else
+            {
+                // Normal wall/bounce logic
+                if (Physics.Raycast(startPos, direction, out RaycastHit hit, 4f))
+                {
+                    Vector3 hitPoint = hit.point + hit.normal * 0.05f;
+                    lineRenderer.SetPosition(1, hitPoint);
+
+                    // Bounce prediction
+                    Vector3 reflected = Vector3.Reflect(direction, hit.normal);
+                    lineRenderer.SetPosition(2, hitPoint + reflected * 2f);
+                }
+                else
+                {
+                    lineRenderer.positionCount = 2;
+                    lineRenderer.SetPosition(1, startPos + direction * 4f);
+                }
+            }
+
             yRotation = Mathf.Clamp(yRotation, -35f, 35f);
 
 

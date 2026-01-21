@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class CameraHold : MonoBehaviour
 {
-    public Transform target; //For the camera rotation
+    public Transform target; //For the camera rotation * aiming gameobject
     public float RotationSpeed;
     public CinemachineVirtualCamera cinemachine;
 
     [Header("Player")]
-    public GameObject ball;
+    public GameObject ball; //Actual rigidbody ball
     private Transform ballTransform;
 
     private void Start()
