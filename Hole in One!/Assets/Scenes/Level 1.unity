@@ -789,6 +789,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7784270000609108450, guid: dd3129460c76f464f8aba53288d1503c,
         type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7784270000609108450, guid: dd3129460c76f464f8aba53288d1503c,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -32020393
+      objectReference: {fileID: 0}
+    - target: {fileID: 7784270000609108450, guid: dd3129460c76f464f8aba53288d1503c,
+        type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].time
       value: 1
       objectReference: {fileID: 0}
@@ -821,10 +831,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1907134456314190014, guid: dd3129460c76f464f8aba53288d1503c,
         type: 3}
       insertIndex: 3
-      addedObject: {fileID: 1156468514}
-    - targetCorrespondingSourceObject: {fileID: 1907134456314190014, guid: dd3129460c76f464f8aba53288d1503c,
-        type: 3}
-      insertIndex: 4
       addedObject: {fileID: 1156468523}
     - targetCorrespondingSourceObject: {fileID: 1907134456314190014, guid: dd3129460c76f464f8aba53288d1503c,
         type: 3}
@@ -834,6 +840,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1156468530}
+    - targetCorrespondingSourceObject: {fileID: 1907134456314190014, guid: dd3129460c76f464f8aba53288d1503c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1156468540}
   m_SourcePrefab: {fileID: 100100000, guid: dd3129460c76f464f8aba53288d1503c, type: 3}
 --- !u!23 &302253861 stripped
 MeshRenderer:
@@ -3861,47 +3871,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 302253860}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1156468514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1156468502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ed9ee711cec7a24fb82d086605449ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pullAndRelease: {fileID: 1744621367}
-  powerFill: {fileID: 493052908}
-  barContainer: {fileID: 1162757495}
-  fillSpeed: 1
-  charging: 0
-  goingUp: 1
-  powerValue: 0
-  lowColor:
-    r: 1
-    g: 0.92156863
-    b: 0.015686275
-    a: 1
-  midColor:
-    r: 0
-    g: 1
-    b: 0
-    a: 1
-  highColor:
-    r: 1
-    g: 0
-    b: 0
-    a: 1
-  player:
-    m_Name: 
-    m_Id: 
-    m_Asset: {fileID: 0}
-    m_Actions: []
-    m_Bindings: []
-  inputAsset: {fileID: 0}
 --- !u!114 &1156468515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3974,6 +3943,25 @@ TrailRenderer:
     type: 3}
   m_PrefabInstance: {fileID: 302253860}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1156468540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1156468502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 871c392862530d6438210f10100ec5e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrowPrefab: {fileID: 2391190130956787492, guid: a51cee810c361b94e8bf67ee49aaf0d9,
+    type: 3}
+  arrowCount: 6
+  spacing: 0.4
+  scrollSpeed: 5
+  heightOffset: -0.06
+  aimSource: {fileID: 1744621368}
 --- !u!1 &1162757495
 GameObject:
   m_ObjectHideFlags: 0
@@ -6686,6 +6674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2abe74470df15340b0d8f68df932149, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aimArrowIndicator: {fileID: 1156468540}
   rb: {fileID: 1156468504}
   lineRenderer: {fileID: 1156468503}
   trailRenderer: {fileID: 1156468535}
@@ -6699,9 +6688,9 @@ MonoBehaviour:
   powerGradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 0.45490196}
-    key1: {r: 1, g: 0.93849885, b: 0, a: 0.45490196}
+    key1: {r: 1, g: 0.93849885, b: 0, a: 0.60784316}
     key2: {r: 0.35056067, g: 1, b: 0, a: 0}
-    key3: {r: 1, g: 0, b: 0, a: 0}
+    key3: {r: 1, g: 0, b: 0.28545666, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
@@ -6767,17 +6756,17 @@ MonoBehaviour:
       - serializedVersion: 3
         time: 0
         value: 0.15128326
-        inSlope: 0.013980326
-        outSlope: 0.013980326
+        inSlope: 0.002364398
+        outSlope: 0.002364398
         tangentMode: 34
         weightedMode: 0
         inWeight: 0
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 0.16787338
-        inSlope: 0.013980326
-        outSlope: 0.013980326
+        value: 0.15378952
+        inSlope: 0.002364398
+        outSlope: 0.002364398
         tangentMode: 34
         weightedMode: 0
         inWeight: 0.33333334

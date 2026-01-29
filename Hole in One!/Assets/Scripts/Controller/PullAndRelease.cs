@@ -119,6 +119,7 @@ public class PullAndRelease : MonoBehaviour
         float power01 = currentPullDistance / maxPullDistance;
         aimArrowIndicator.UpdateAim(power01);
         Color powerColor = powerGradient.Evaluate(power01);
+        aimArrowIndicator.SetArrowColor(powerColor);
 
         lineRenderer.positionCount = 2;
         lineRenderer.SetPosition(0, ballPos);

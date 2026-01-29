@@ -11,6 +11,7 @@ public class AimArrowIndicator : MonoBehaviour
     public float heightOffset = 0.03f;
 
     private List<Transform> arrows = new List<Transform>();
+    private List<SpriteRenderer> arrowRenderers = new List<SpriteRenderer>();
     private float scrollOffset;
     private bool isActive;
     public Transform aimSource; // controller transform
@@ -23,6 +24,17 @@ public class AimArrowIndicator : MonoBehaviour
             GameObject arrow = Instantiate(arrowPrefab, transform);
             arrow.SetActive(false);
             arrows.Add(arrow.transform);
+
+            SpriteRenderer sr = arrow.GetComponent<SpriteRenderer>();
+            if (sr == null)
+                sr = arrow.GetComponentInChildren<SpriteRenderer>();
+
+            if (sr != null) arrowRenderers.Add(sr);
+            else
+            {
+                Debug.LogWarning("Arrow prefab has no SpriteRenderer!");
+                arrowRenderers.Add(null); // keep the list in sync
+            }
         }
     }
 
@@ -33,6 +45,17 @@ public class AimArrowIndicator : MonoBehaviour
 
         foreach (var arrow in arrows)
             arrow.gameObject.SetActive(active);
+    }
+
+    public void SetArrowColor(Color color)
+    {
+        for (int i = 0; i < arrowRenderers.Count; i++)
+        {
+            if (arrowRenderers[i] != null)
+            {
+                arrowRenderers[i].color = color;
+            }
+        }
     }
 
     public void UpdateAim(float power01)
