@@ -1,40 +1,48 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BallCustomizer : MonoBehaviour
 {
-    [Header("Assign the MeshRenderer of this ball")]
     public MeshRenderer meshRenderer;
-
-    void Start()
-    {
-        ApplySelectedBall();
-        Debug.Log(meshRenderer.material);
-    }
+    public TrailRenderer trailRenderer;
 
     public void ApplyBall(BallItem item)
     {
-        if (meshRenderer != null && item != null && item.Material != null)
-        {
-            meshRenderer.material = item.Material;
-            Debug.Log("Applied material: " + item.Material.name);
-            
-        }
-        else
-        {
-            Debug.LogWarning("Material not applied! Check meshRenderer or BallItem.Material.");
-        }
+        if (item?.Material == null) return;
+        meshRenderer.material = item.Material;
     }
 
-
-    void ApplySelectedBall()
+    public void ApplyTrail(TrailItem item)
     {
-        if (SaveManager.instance == null || ShopUI.Instance == null) return;
+        if (trailRenderer == null) return;
 
-        int selectedIndex = SaveManager.instance.saveData.currentBallIndex;
+        if (item == null)
+        {
+            trailRenderer.enabled = false;
+            return;
+        }
 
-        if (selectedIndex < 0 || selectedIndex >= ShopUI.Instance.shopItems.Count) return;
+        trailRenderer.enabled = true;
+        trailRenderer = item.trailRenderer;
+        trailRenderer.time = item.TrailTime;
+        trailRenderer.startWidth = item.StartWidth;
+        trailRenderer.endWidth = item.EndWidth;
+    }
 
-        BallItem selectedItem = ShopUI.Instance.shopItems[selectedIndex];
-        ApplyBall(selectedItem);
+    public void ApplySelectedCosmetics(
+        List<BallItem> balls,
+        List<TrailItem> trails
+    )
+    {
+        int ballIndex = SaveManager.instance.saveData.currentBallIndex;
+        int trailIndex = SaveManager.instance.saveData.currentTrailIndex;
+
+        if (ballIndex >= 0 && ballIndex < balls.Count)
+            ApplyBall(balls[ballIndex]);
+
+        if (trailIndex >= 0 && trailIndex < trails.Count)
+            ApplyTrail(trails[trailIndex]);
+        else
+            ApplyTrail(null);
     }
 }

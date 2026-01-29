@@ -44,4 +44,25 @@ public class SaveManager : MonoBehaviour
         saveData.currentBallIndex = index;
         SaveGame();
     }
+
+    public bool IsTrailPurchased(TrailItem item)
+    {
+        return saveData.purchasedTrailIDs.Contains(item.ItemID);
+    }
+
+    public void PurchaseTrail(TrailItem item)
+    {
+        if (!IsTrailPurchased(item))
+        {
+            saveData.purchasedTrailIDs.Add(item.ItemID);
+            SaveGame();
+        }
+    }
+
+    public void SetSelectedTrail(int index)
+    {
+        saveData.currentTrailIndex = index;
+        SaveGame();
+    }
+
 }

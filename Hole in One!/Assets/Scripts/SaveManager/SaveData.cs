@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class SaveData
 {
     public int currentBallIndex = 0;
+    public int currentTrailIndex = 0;
     public int Coins = 0;
     public List<string> purchasedBallIDs = new List<string>();
+    public List<string> purchasedTrailIDs = new List<string>();
 }
