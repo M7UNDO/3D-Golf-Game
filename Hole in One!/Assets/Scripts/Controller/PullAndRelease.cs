@@ -6,6 +6,7 @@ using Cinemachine;
 public class PullAndRelease : MonoBehaviour
 {
     [Header("References")]
+    [SerializeField] private AimArrowIndicator aimArrowIndicator;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private TrailRenderer trailRenderer;
@@ -100,6 +101,7 @@ public class PullAndRelease : MonoBehaviour
 
             DrawPullLine();
             ApplyCameraTension();
+            aimArrowIndicator.SetActive(true);
         }
 
         if (charge.WasReleasedThisFrame() && isCharging)
@@ -115,6 +117,7 @@ public class PullAndRelease : MonoBehaviour
         Vector3 pullDir = -transform.forward;
 
         float power01 = currentPullDistance / maxPullDistance;
+        aimArrowIndicator.UpdateAim(power01);
         Color powerColor = powerGradient.Evaluate(power01);
 
         lineRenderer.positionCount = 2;
@@ -162,6 +165,7 @@ public class PullAndRelease : MonoBehaviour
         if (currentPullDistance <= cancelThreshold)
         {
             currentPullDistance = 0f;
+            aimArrowIndicator.SetActive(false);
             return;
         }
 
@@ -169,7 +173,7 @@ public class PullAndRelease : MonoBehaviour
         float shotPower = Mathf.Lerp(minShotPower, maxShotPower, power01);
 
         rb.AddForce(transform.forward * shotPower, ForceMode.Impulse);
-
+        aimArrowIndicator.SetActive(false);
         currentPullDistance = 0f;
         TrackShots();
     }
